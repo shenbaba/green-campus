@@ -1,0 +1,1 @@
+<view class="tips-content"><view class="tip"><view class="tips"><view class="strip"></view><text>{{msg}}</text></view><icon hidden="{{!(bool)}}" class="iconfont icon-arrow-right" type></icon></view></view>

@@ -1,0 +1,12 @@
+
+.qiun-charts {
+	width: 670rpx;
+	height: 500rpx;
+	background-color: #FFFFFF;
+}
+.charts {
+	width: 670rpx;
+	height: 500rpx;
+	background-color: #FFFFFF;
+}
+

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "head-top": "/components/page-head/page-head",
+    "ti-ps": "/components/page-tips/tips",
+    "calen-dar": "/components/calendar"
+  }
+}

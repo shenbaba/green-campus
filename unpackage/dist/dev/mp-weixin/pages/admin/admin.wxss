@@ -1,0 +1,129 @@
+
+.admin-page{
+	width: 750rpx;
+	background-color: #f0f3f6;
+	overflow: hidden;
+}
+.admin-head{
+	padding: 20rpx;
+	font-size: 28rpx;
+	color: #74828f;
+	line-height: 20px;
+	background-color: #f0f3f6;
+	text-align: center;
+	border: 1px solid rgba(255, 255, 255, 0);
+}
+.setting{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+}
+.admin-msg{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: start;
+	-webkit-justify-content: flex-start;
+	        justify-content: flex-start;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.admin-img{
+	border-radius:50%;
+	width: 150rpx;
+	height: 150rpx;
+	line-height: 150rpx;
+	text-align: center;
+	border: 1px solid rgba(187, 187, 187, 1);
+	margin-right: 26rpx;
+}
+.admin-img .icon-account{
+	font-size: 60rpx;
+}
+.admin-user{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	        align-items: flex-start;
+	line-height: 40rpx;
+}
+.admin-user text:nth-child(1){
+	font-size: 28rpx;
+	margin-bottom: 10rpx;
+	text-align: left;
+}
+.admin-user text:nth-child(2){
+	font-size: 24rpx;
+	text-align: left;
+}
+.admin-banner{
+	padding: 30rpx 60rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	border-radius: 5rpx 5rpx 0 0;
+	background-color: #FFFFFF;
+	position: relative;
+	left: 0px;
+	top: -10rpx;
+	border-radius: 20rpx 20rpx 0 0;
+	text-align: center;
+	border: 1px solid rgba(255, 255, 255, 0);
+}
+.alarm,.message,.attention{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	font-size: 24rpx;
+	line-height: 48rpx;
+}
+.alarm .iconfont,.message .iconfont,.attention .iconfont{
+	font-size: 50rpx;
+}
+.alarm .iconfont{
+	color: #efb336;
+}
+.message .iconfont{
+	color: #7dc5eb;
+}
+.attention .iconfont{
+	color: #F65343;
+}
+.admin-content{
+	background-color: #FFFFFF;
+	margin-top: 10rpx;
+	font-size: 28rpx;
+}
+.manage{
+	height: 100rpx;
+	line-height: 100rpx;
+	border-bottom: 1rpx #bbbbbb solid;
+	padding:0 30rpx;
+}
+.manage icon{
+	margin-right: 20rpx;
+}
+

@@ -1,0 +1,1 @@
+<view class="query-page"><head-top vue-id="1" title="数据查询" bool="{{false}}" bind:__l="__l"></head-top></view>

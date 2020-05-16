@@ -1,0 +1,1 @@
+<view class="about-page"><head-top vue-id="1" title="关于" uRl="../../pages/admin/admin" bind:__l="__l"></head-top><view class="vission"><text>当前版本</text><text>1.0</text></view><view class="update"><text>检查更新</text><icon class="iconfont icon-arrow-right" type></icon></view></view>

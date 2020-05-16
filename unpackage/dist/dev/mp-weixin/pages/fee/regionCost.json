@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "head-top": "/components/page-head/page-head",
+    "ti-ps": "/components/page-tips/tips",
+    "u-chart": "/components/chat/chat-1",
+    "u-charts": "/components/chat/chat-year",
+    "calen-dar": "/components/calendar",
+    "u-pie": "/components/chat/pie/regionEnegy-pie"
+  }
+}

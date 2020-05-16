@@ -1,0 +1,69 @@
+
+.page-header{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	width: 750rpx;
+	height: 120rpx;
+	background-color: #008dff;
+	font-size: 28rpx;
+	line-height: 28rpx;
+	padding-left: 30rpx;
+	padding-right: 30rpx;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	z-index: 10;
+}.iconfont{
+	font-size: 50rpx;
+	color: #F9FAFB ;
+}.page-title{
+	font-size: 32rpx;
+	font-weight: 500;
+	color: #F9FAFB;
+}.blank{
+	width: 60rpx;
+	height: 60rpx;
+}.placeholder{
+	width: 750rpx;
+	height: 30rpx;
+}
+
+
+.judge-page{
+	background-color: #f0f3f6;
+	padding-bottom: 120rpx;
+}
+.judge{
+	background-color: #FFFFFF;
+	margin-top: 20rpx;
+	padding: 20rpx;
+	font-size: 24rpx;
+}
+.add-judge-list{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-around;
+	        justify-content: space-around;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.unusual-chat{
+	border: 1rpx #C8C7CC solid;
+	padding-bottom: 10rpx;
+	padding-top: 10rpx;
+}
+.suggest{
+	margin-top: 20rpx;
+	padding: 10rpx;
+	border-top: 1rpx #C8C7CC solid;
+}
+

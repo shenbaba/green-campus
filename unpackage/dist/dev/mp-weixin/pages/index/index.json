@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "head-top": "/components/page-head/page-head",
+    "ban-ner": "/components/banner",
+    "u-charts": "/components/chat/chat-1",
+    "ti-ps": "/components/page-tips/tips"
+  }
+}
