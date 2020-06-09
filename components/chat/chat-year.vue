@@ -1,7 +1,7 @@
 <template>
 	<view class="qiun-columns">
 		<view class="qiun-charts">
-			<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchColumn"></canvas>
+			<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" disable-scroll=true @touchstart="touchColumn" @touchmove="moveColumn" @touchend="touchEndColumn"></canvas>
 		</view>
 	</view>
 </template>
@@ -14,11 +14,9 @@
 	var canvasColumn = null;
 	export default {
 		props:{
-			uRl:'',
-			category:{
-				type:String
-			},
-			d:{}
+			d:{
+				type:Array
+			}
 		},
 		data() {
 			return {
@@ -37,45 +35,25 @@
 		},
 		methods: {
 			// 获取数据，发请求
+			
 			getServerData() {
-				//console.log(this.d);
-					uni.request({
-						// 请求地址
-						url:this.uRl,
-						// 请求参数
-						data:this.d,
-						// 请求成功的回调函数
-						success: function(res) {
-							let Column = {
-								categories: [],
-								series: [{
-									'name' :'费用',
-									'color':'#40B1FF',
-									'data':[]
-								}]
-							};
-							console.log(res.data);
-							let len = res.data.detail.length;	
-							for(let i = 1;i<len;i++){
+				
+				let Column = {
+					categories: [],
+					series: [{
+						'name' :'日费用',
+						'color':'#40B1FF',
+						'data':[]
+					}]
+				};
+				let le =this.d.length;
+				for(let i = 1;i<le;i++){
+				
 					
-								if(_self.category == 'free'){
-							
-									Column.series[0].data.push(res.data.detail[i].free);
-								}else if(_self.category == 'enery'){
-									Column.series[0].data.push(res.data.detail[i].battery);
-									Column.series[0].name = '每月能耗';
-								}
-								
-								Column.categories.push(i);
-							}
-							// 找到id为canvasColumn的块
-							 _self.showColumn("canvasColumn", Column);
-						// 请求失败的回调函数
-						fail: () => {
-							_self.tips="网络错误，小程序端请检查合法域名";
-						}
-					}
-				})	
+					 Column.series[0].data.push(this.d[i].free.toFixed(2));
+					Column.categories.push(i);
+				}
+				_self.showColumn("canvasColumn", Column);
 			},
 			// 展示图标的函数 接收参数，一个块的id,一个数据
 			showColumn(canvasId, chartData) {
@@ -91,29 +69,29 @@
 					dataLabel: false,
 					dataPointShape: true,
 					background: '#FFFFFF',
-					pixelRatio: _self.pixelRatio,//像素比
+					pixelRatio: _self.pixelRatio, //像素比
 					categories: chartData.categories,
 					series: chartData.series,
 					animation: true,
+					enableScroll: true,
 					// x轴显示的内容
 					xAxis: {
 						type: 'calibration',
 						gridColor: '#ffffff',
 						//网格线型：dash 虚线  solid 实线
 						gridType: 'dash',
-						dashLength: 8,
-						rotateLabel:true,
-						scrollShow:true,
+						itemCount:8,
+						scrollAlign:'left',
+						
 					},
 					// y轴显示的内容
 					yAxis: {
-						type:'calibration',
 						gridType: 'solid',
 						gridColor: '#CCCCCC',
 						dashLength: 8,
 						splitNumber: 5,
 						min: 0,
-						max: 300000,
+						max: 100,
 						format: (val) => {
 							return val.toFixed(0) + '元'
 						}
@@ -130,14 +108,24 @@
 
 			},
 			// 点击图表显示的内容
-			touchColumn(e) {
-				// 使用声明的变量canvaColumn
+			touchColumn(e){
+				canvasColumn.scrollStart(e);
+			},
+			moveColumn(e) {
+				
+				canvasColumn.scroll(e);
+			},
+			touchEndColumn(e) {
+				canvasColumn.scrollEnd(e);
+				canvasColumn.touchLegend(e, {
+					animation:true,
+				});
 				canvasColumn.showToolTip(e, {
-					format: function(item, category) {
-						return category + ' ' + item.name + ':' + item.data
+					format: function (item, category) {
+						return  item.data +'元' 	
 					}
 				});
-			}
+			},
 		}
 	}
 </script>

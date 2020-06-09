@@ -56,6 +56,7 @@
 .query-page{
 	background-color: #f0f3f6;
 	width: 750upx;
+	padding-top: 120upx;
 }
 .query_list{
 	margin-top: 20upx;

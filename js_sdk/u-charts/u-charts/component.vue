@@ -148,9 +148,7 @@
 			touchEnd(e) {
 				canvases[this.canvasId].scrollEnd(e);
 			},
-			error(e) {
-				console.log(e)
-			}
+			
 		},
 	};
 </script>

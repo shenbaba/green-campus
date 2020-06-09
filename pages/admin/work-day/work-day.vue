@@ -4,19 +4,16 @@
 		<!-- <calen-dar></calen-dar> -->
 		<view class="query">
 			<text>指标查询:</text>
-			<select name="cars" class="text">
-				<option value="">单位假期</option>
-				<option value="">工作日</option>
-			</select>
-			<button class="mini-btn" type="primary" size="mini">查询</button>
+			<input type="text" value="" style="font-size: 24upx;" v-model="workHolidayId"/>
+			<button @click="chooseWoek()">查询</button>
 		</view>
 		<view class="query-lists">
 			<ti-ps msg="工作日与假期列表"></ti-ps>
 			<view class="list" v-for="(item, index) in list" :key="index">
-				<text>开始日期：2020-10-1</text>
-				<text>结束日期：2020-10-7</text>
-				<text>日期名称：国庆节</text>
-				<text>日期类型：单位假期</text>
+				<text>开始时间：{{item.startTime}}</text>
+				<text>结束时间：{{item.endTime}}</text>
+				<text>日期名称：{{item.workHolidayName}}</text>
+				<text>是否工作日：{{item.isWork}}</text>
 			</view>
 
 		</view>
@@ -34,7 +31,8 @@
 		data() {
 			return {
 				list:[],
-				loading : false
+				loading : false,
+				workHolidayId:''
 			}
 		},
 		components: {
@@ -43,21 +41,51 @@
 			calenDar
 		},
 		methods: {
-
+			chooseWoek(){
+				this.list = [];
+				uni.request({
+					url:'/api/GreenCampus/workHoliday/one',
+					data:{
+						workHolidayId:this.workHolidayId	
+					},
+					success: (res) => {
+						this.list.push(res.data.detail);
+						
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
+					}
+				})
+			},
+			getInfo(){
+				uni.request({
+					url:'/api/GreenCampus/workHoliday/all',
+					data:{
+						
+					},
+					success: (res) => {
+						this.list = res.data.detail;
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
+					}
+				})
+			}
 		},
 		onShow() {
-			uni.request({
-				url:'',
-				data:{
-					
-				},
-				success: (res) => {
-					
-				},
-				fail: () => {
-					console.log('error');
-				}
-			})
+			this.getInfo()
+		},
+		//下拉刷新
+		onPullDownRefresh() {
+			this.getInfo();
+			setTimeout(function () {
+				//停止刷新
+				uni.stopPullDownRefresh();
+			}, 1000);
 		}
 	}
 </script>
@@ -67,5 +95,16 @@
 	@import url("../../../static/admin.css");
 	option {
 		font-size: 12upx;
+	}
+	.list{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		
+	}
+	.list text{
+		width: 100%;
+		min-width: 100%;
+		max-width: 100%;
 	}
 </style>

@@ -80,7 +80,7 @@
 					  timeType:'day'
 				},
 			    success: (res) => {
-			        console.log('day',res.data);
+			       
 					this.free.dayfree = parseInt(res.data.detail[0].free);
 			    }
 			});
@@ -92,7 +92,7 @@
 					  timeType:'month'
 				},
 			    success: (res) => {
-			        console.log('month',res.data);
+			      
 					this.free.monthfree = parseInt(res.data.detail[0].free);
 			    }
 			});
@@ -104,7 +104,7 @@
 					  timeType:'year'
 				},
 			    success: (res) => {
-			        console.log('year',res.data);
+			       
 					this.free.yearfree = parseInt(res.data.detail[0].free);
 			    }
 			});

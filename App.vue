@@ -1,20 +1,11 @@
 <script>
 	export default {
-		onLaunch: function() {
-			console.log('App Launch')
-		},
-		onShow: function() {
-			console.log('App Show')
-		},
-		onHide: function() {
-			console.log('App Hide')
-		}
 	}
 </script>
 
 <style>
 	/*每个页面公共css */
-	@import url("http://at.alicdn.com/t/font_1633081_lo8idqjx459.css");
+	@import url("http://at.alicdn.com/t/font_1633081_x60nwds05mh.css");
 	@import "components/m-icon/m-icon.css";
 	button {
 		background-color: #0191fb;

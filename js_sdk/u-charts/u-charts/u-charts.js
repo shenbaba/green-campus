@@ -5262,7 +5262,7 @@ Charts.prototype.updateData = function() {
 Charts.prototype.zoom = function() {
   var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.opts.xAxis.itemCount;
   if (this.opts.enableScroll !== true) {
-    console.log('请启用滚动条后使用！')
+    
     return;
   }
   //当前屏幕中间点
@@ -5399,7 +5399,7 @@ Charts.prototype.showToolTip = function(e) {
     touches = e.mp.changedTouches[0];
   }
   if (!touches) {
-    console.log("touchError");
+    
   }
   var _touches$ = getTouches(touches, this.opts, e);
   var currentOffset = this.scrollOption.currentOffset;

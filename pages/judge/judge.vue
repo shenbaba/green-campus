@@ -3,50 +3,26 @@
 		<head-top title="用能诊断" :bool="false"></head-top>
 		<view class="judge-content">
 			<view class="judge add-judge">
-				<ti-ps msg="能耗诊断" :bool="true"></ti-ps>
-				<view class="add-judge-list">
-					<text>诊断内容：临潼校区能耗突增</text>
-					<text>诊断时间：2020-02-23</text>
-				</view>
-				<view class="add-judge-list">
-					<text>诊断内容：临潼校区能耗突增</text>
-					<text>诊断时间：2020-02-23</text>
-				</view>
-				<view class="add-judge-list">
-					<text>诊断内容：临潼校区能耗突增</text>
-					<text>诊断时间：2020-02-23</text>
-				</view>
-				<view class="add-judge-list">
-					<text>诊断内容：临潼校区能耗突增</text>
-					<text>诊断时间：2020-02-23</text>
-				</view>
-				<view class="add-judge-list">
-					<text>诊断内容：临潼校区能耗突增</text>
-					<text>诊断时间：2020-02-23</text>
+				<navigator url="./allDiaBattery"><ti-ps msg="能耗诊断" :bool="true"></ti-ps></navigator>
+				<view class="allDiaBattery"  v-for="(item, index) in list" :key="index">
+					<text>诊断内容：{{item.diaBatteryName}}</text>
+					<!-- <text>诊断时间：{{item.time}}</text> -->
+					<!-- <icon class="iconfont icon-arrow-right" type=""></icon> -->
 				</view>
 			</view>
 			<view class="judge unusual-judge">
-				<ti-ps msg="指标诊断" :bool="true"></ti-ps>
-				<view class="unusual-chat">
-					<text>2020年1月12日教学楼13#照明用电异常</text>
-					<un-usual></un-usual>
-					<view class="suggest">
-						<text>诊断意见：该区域在16:00至17:00之间出现能耗突增</text>
-					</view>
+				<navigator url="./allDiaQuota"><ti-ps msg="指标诊断" :bool="true"></ti-ps></navigator>
+				<view class="unusual-chat" v-for="(item, index) in listDiaQuota" :key="index">
+					<text>指标名称：{{item.diaQuotaName}}</text>
 				</view>
 			</view>
-			<view class="judge time-judge">
-				<ti-ps msg="设备诊断" :bool="true"></ti-ps>
-				<view class="unusual-chat">
-					<text>2020年1月12日教学楼13#照明用电异常</text>
-					<un-usual></un-usual>
-					<view class="suggest">
-						<text>诊断意见：该区域在16:00至17:00之间出现能耗突增</text>
-					</view>
+			<view class="judge equip-judge">
+				<navigator url="./allDiaDevice"><ti-ps msg="设备诊断" :bool="true"></ti-ps></navigator>
+				<view class="unusual-chat" v-for="(item, index) in listDevice" :key="index">
+					<text>设备名称：{{item.diaDeviceName}}</text>
 				</view>
 			</view>
 		</view>
-		
 	</view>
 </template>
 
@@ -58,7 +34,9 @@
 	export default {
 		data() {
 			return {
-				
+				list:[],
+				listDiaQuota:[],
+				listDevice:[]
 			}
 		},
 		components:{
@@ -67,15 +45,76 @@
 			unUsual
 		},
 		methods: {
-			
+			getDiaBattery(){
+				uni.request({
+					url:'/api/GreenCampusDia/allDiaBattery',
+					data:{
+						pageNo : 1,
+						pageSize : 5
+					},
+					success: (res) => {
+						
+						this.list = res.data.detail;
+				
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
+					}
+				})
+			},
+			getDiaQuota(){
+				uni.request({
+					url:'/api/GreenCampusDia/allDiaQuota',
+					data:{
+						pageNo : 1,
+						pageSize : 5
+					},
+					success: (res) => {
+					
+						this.listDiaQuota = res.data.detail;
+				
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
+					}
+				})
+			},
+			getDiaDevice(){
+				uni.request({
+					url:'/api/GreenCampusDia/allDiaDevice',
+					data:{
+						pageNo : 1,
+						pageSize : 5
+					},
+					success: (res) => {
+						this.listDevice = res.data.detail;
+				
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
+					}
+				})
+			}
+		},
+		onShow(){
+			this.getDiaBattery();
+			this.getDiaQuota(),
+			this.getDiaDevice()
 		}
 	}
 </script>
 
-<style>
+<style lang="less">
 .judge-page{
 	background-color: #f0f3f6;
-	padding-bottom: 120upx;
+	padding-bottom: 20upx;
+	padding-top: 120upx;
 }
 .judge{
 	background-color: #FFFFFF;
@@ -83,15 +122,22 @@
 	padding: 20upx;
 	font-size: 24upx;
 }
-.add-judge-list{
+.allDiaBattery,.unusual-chat{
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-start;
+	font-size: 28upx;
+	padding-left: 20upx;
 	align-items: center;
-}
-.unusual-chat{
-	border: 1upx #C8C7CC solid;
-	padding-bottom: 10upx;
-	padding-top: 10upx;
+	color: #606a73;
+	padding: 0 20upx;
+	
+	text{
+		margin-bottom: 10upx;
+		width: 90%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 }
 .suggest{
 	margin-top: 20upx;

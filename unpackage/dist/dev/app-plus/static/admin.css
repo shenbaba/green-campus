@@ -1,7 +1,8 @@
 .page{
 	background-color: #f0f3f6;
 	color: #4e6070;
-	height: 100vh;
+	height: calc(100vh - 120upx);
+	padding-top: 120upx;
 }
 .query{
 	display: flex;
@@ -33,7 +34,6 @@ input{
 }
 .list{
 	width: 694upx;
-	height: 150upx;
 	line-height: 20px;
 	display: flex;
 	flex-wrap: wrap;
@@ -42,17 +42,20 @@ input{
 	background-color: #FFFFFF;
 	text-align: left;
 	border: 1px solid #FFFFFF;
-	padding: 20upx 20upx;
+	padding: 20upx 10upx;
 	box-sizing: border-box;
 	margin-bottom: 20upx;
+	overflow: hidden;
 	
 }
 .list text{
-	flex: 1;
 	width: 50%;
 	min-width: 50%;
     max-width: 50%;
 	font-size: 24upx;
+	overflow:hiddren;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }
 .more{
 	display: flex;

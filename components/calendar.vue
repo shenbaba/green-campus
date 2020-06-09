@@ -2,7 +2,7 @@
 	<view>
 		<view class="Calendar">
 			<view class="uni-list-cell-left-time">
-				时间:
+				时间范围:
 			</view>
 			<view class="uni-list-cell-db-left">
 				<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
@@ -69,7 +69,7 @@
 		padding: 20upx 20upx;
 		align-items: center;
 		background-color: #FFFFFF;
-		font-size: 28upx;
+		font-size: 24upx;
 		box-sizing: border-box;
 	}
 	.uni-list-cell-db-left,.uni-list-cell-db-right{

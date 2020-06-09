@@ -1,79 +1,160 @@
 <template>
 	<view class="regionCost">
-		<head-top :title="title" uRl="../../pages/index/index"></head-top>
-		<calen-dar></calen-dar>
-		<!-- picker选择框 -->
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					当前选择区域
-				</view>
-				<view class="uni-list-cell-db">
-					<picker @change="bindPickerChange" :value="index" :range="array">
-						<view class="uni-input">{{array[index]}}</view>
-					</picker>
-					<icon class="iconfont icon-arrowdown" type=""></icon>
-				</view>
-				<button type="primary">查询</button>
+		<headTop title="能耗排名" uRl='../index/index'></headTop>
+		<view class="select">
+			<view class="">
+				<text :class="{active:shows == 1}" @click="Show(1)">主要区域能耗排名</text>
+				<text :class="{active:shows == 2}"  @click="Show(2)">重要设备能耗排名</text>	
 			</view>
 		</view>
-		<view class="year">
-			<ti-ps msg="该区域每月能耗"></ti-ps>
-			<u-Charts></u-Charts>
+		<view class="region" v-if="bool">
+			<ti-ps msg="主要区域能耗排名"></ti-ps>
+			<region-rank></region-rank>
+			<view class="list_rank">
+				<view class="title">
+					主要区域能耗排序
+				</view>
+				<view class="ele_list">
+					<view class="list_head">
+						<text>区域名</text>
+						<text>电量(千瓦时)</text>
+					</view>
+					<view class="lists" v-for="(item, index) in list " :key="index">
+						<text>{{item.regionName}}</text>
+						<text>{{item.battery}}</text>
+					</view>
+				</view>
+			</view>
 		</view>
-		<view class="month">
-			<ti-ps msg="各区域能耗对比"></ti-ps>
-			<u-pie></u-pie>
-		</view>
-		<view class="days">
-			<ti-ps msg="区域用电趋势"></ti-ps>
-			<u-line></u-line>
+		<view class="equip" v-if="!bool">
+			<ti-ps msg="重要设备能耗排名"></ti-ps>
+			<equip-rank></equip-rank>
+			<view class="list_rank">
+				<view class="title">
+					重要设备能耗排序
+				</view>
+				<view class="ele_list">
+					<view class="list_head">
+						<text>设备名</text>
+						<text>电量(千瓦时)</text>
+					</view>
+					<view class="lists" v-for="(item, index) in listE " :key="index">
+						<text>{{item.deviceName}}</text>
+						<text>{{item.battery}}</text>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import headTop from '@/components/page-head/page-head.vue'
 	import tiPs from "@/components/page-tips/tips.vue"
-	import uCharts from "@/components/chat/chat-year.vue"
-	import uPie from "@/components/chat/pie/regionEnegy-pie.vue"
-	import uLine from "@/components/chat/line/regionEnergy-line.vue"
-	import calenDar from "@/components/calendar.vue"
+	import regionRank from "@/components/chat/column/region_rank.vue"
+	import equipRank from "@/components/chat/column/equip_rank.vue"
 	export default {
 		data() {
 			return {
-				title: '区域能耗',
-				array: ['临潼校区生活区', '临潼校区教学区', '雁塔校区生活区', '雁塔校区教学区'],
-				index: 0,
+				shows :1,
+				list:[],
+				listE:[],
+				bool:true
 			}
 		},
 		components: {
-			headTop,
 			tiPs,
-			uCharts,
-			uPie,
-			uLine,
-			calenDar
+			regionRank,
+			equipRank
 		},
 		methods: {
-			/* open() {
-				this.$refs.popup.open()
-			}, */
-			 bindPickerChange: function(e) {
-			            console.log('picker发送选择改变，携带值为', e.target.value)
-			            this.index = e.target.value
-			        },
+			Show(index){
+			  this.shows = index;
+			  this.bool = !this.bool
+			},
+			getRank(){
+				uni.request({
+					url:'/api/GreenCampus/elec/sortRegion',
+					data:{
+						timeType:'year',
+						startTime:1577808000000,
+						limit:9,
+						endTime:1609344000000,
+						orderType:'DES'
+					},
+					success: (res) => {
+						this.list = res.data.detail.reverse();
+					}
+				})
+				uni.request({
+					url:'/api/GreenCampus/elec/sortDevice',
+					data:{
+						timeType:'year',
+						startTime:1577808000000,
+						limit:9,
+						endTime:1609344000000,
+						orderType:'DES'
+					},
+					success: (res) => {
+						this.listE = res.data.detail.reverse();
+					}
+				})
+			}
+		},
+		onLoad(){
+			this.getRank();
 		}
 	}
 </script>
 
-<style>
+<style lang="less">
 	.regionCost{
 		background-color: #f0f3f6;
+		padding-top: 120upx;
+		font-size: 28upx;
 	}
-	.year,.month,.days{
-		padding: 20upx 20upx;
+	.select{
 		background-color: #FFFFFF;
-		margin-top: 20upx;
+		view{
+			margin: 20upx auto;
+			margin-bottom: 0;
+			background-color: #008DFF;
+			border-radius: 50upx;
+			width: 600upx;
+			padding: 10upx 20upx;
+			color: #FFFFFF;
+			display: flex;
+			justify-content: space-around;
+			text{
+				padding: 4upx 10upx;
+			}
+		}
+		.active{
+			
+			background-color: #FFFFFF;
+			color: #008DFF;
+			border-radius: 50upx;
+		}
+	}
+	.region,.equip{
+		background-color: #FFFFFF;
+		padding: 20upx 30upx;
+		.list_rank{
+			margin-top: 30upx;
+		}
+		.ele_list{
+			margin-top: 30upx;
+			view{
+				display: grid;
+				grid-template-columns:50% 50%;
+				text-align: center;
+				padding: 20upx 0;
+			}
+			.list_head{
+				background-color: #F0F3F6;
+				padding: 10upx 0;
+				font-size: 24upx;
+				color: #64696d;
+			}
+		}
 	}
 </style>

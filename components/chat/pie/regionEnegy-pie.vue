@@ -24,8 +24,7 @@
 			_self = this;
 			this.cWidth = uni.upx2px(700);
 			this.cHeight = uni.upx2px(600);
-			this.getServerData();
-			console.log(3);
+			this.getServerData();	
 		},
 		methods: {
 			getServerData() {
@@ -39,7 +38,6 @@
 						},
 						success: function(res) {
 							let Pie={series:[]};
-							console.log(res.data.detail);
 						//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
 						let len = res.data.detail.length;
 						for(let i =0; i<1; i++){

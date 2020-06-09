@@ -22,127 +22,114 @@
 				Interactive: '', //交互显示的数据
 			}
 		},
-		mounted(){
+		mounted() {
 			_self = this;
-			this.cWidth = uni.upx2px(700);
-			this.cHeight = uni.upx2px(600);
+			this.cWidth = uni.upx2px(750);
+			this.cHeight = uni.upx2px(500);
 			this.getServerData();
 		},
 		methods: {
 			getServerData() {
-				/* uni.request({
-					url: 'https://www.ucharts.cn/data.json',
-					data: {},
+				uni.request({
+					url: '/api/GreenCampus/elec/getOneRegion',
+					data: {
+						endTime: 1609344000000,
+						startTime: 1577808000000,
+						timeType: 'month',
+						regionId:1
+					},
 					success: function(res) {
-						console.log(res.data.data)
+						
 						let LineA = {
-							categories: [],
-							series: []
+							categories: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+							series: [{
+								"name": "临潼校区",
+								"data": []
+							}]
 						};
-						//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
-						LineA.categories = res.data.data.LineA.categories;
-						LineA.series = res.data.data.LineA.series;
+						let len = res.data.detail.length;
+						 for (let i = 1; i < len; i++) {
+						   LineA.series[0].data.push(res.data.detail[i].battery);
+						} 
 
-						//第二根线为虚线的设置
-						LineA.series[1].lineType = 'dash';
-						LineA.series[1].dashLength = 10;
-						_self.textarea = JSON.stringify(res.data.data.LineA);
+
+
 						_self.showLineA("canvasLineA", LineA);
 					},
 					fail: () => {
 						_self.tips = "网络错误，小程序端请检查合法域名";
 					},
-				}); */
-				let LineA = {
-					categories: [],
-					series: []
-				};
-				LineA.categories = ["1", "2", "3", "4", "5", "6","7","8","9","10","11","12"];
-				LineA.series = [{
-					"name": "临潼校区",
-					"data": [35, 8, 25, 37, 4, 20, 21, 31, 23, 23,12,21]
-				}, {
-					"name": "雁塔校区",
-					"data": [70, 40, 65, 100, 44, 68,76,78,79,70,89,65]
-				}, {
-					"name": "秦汉校区",
-					"data": [100, 80, 95, 150, 112, 132,123,134,121,125,100,108]
-				}];
-				_self.showLineA("canvasLineA", LineA);
+				});
+				/* 	let LineA = {
+						categories: [],
+						series: []
+					};
+					LineA.categories = ["1月", "2月", "3月", "4月", "5月", "6月","7月","8月","9月","10月","11月","12月"];
+					LineA.series = [{
+						"name": "临潼校区",
+						"data": [18, 27, 21, 24, 6, 28]
+					}];
+					_self.showLineA("canvasLineA", LineA); */
 			},
 			showLineA(canvasId, chartData) {
 				canvaLineA = new uCharts({
 					$this: _self,
 					canvasId: canvasId,
 					type: 'line',
-					colors: ['#facc14', '#f04864', '#8543e0', '#90ed7d'],
+					colors: ['#147fd1'],
 					fontSize: 11,
-					padding: [15, 15, 0, 15],
+
 					legend: {
-						show: true,
+						show: false,
 						padding: 5,
 						lineHeight: 11,
 						margin: 0,
 					},
 					dataLabel: false,
 					dataPointShape: true,
+					dataPointShapeType: 'hollow',
 					background: '#FFFFFF',
 					pixelRatio: _self.pixelRatio,
 					categories: chartData.categories,
 					series: chartData.series,
 					animation: true,
+					enableScroll: true,
 					xAxis: {
-						type: 'grid',
-						gridColor: '#CCCCCC',
+						type: 'calibration',
+						gridColor: '#ffffff',
+						//网格线型：dash 虚线  solid 实线
 						gridType: 'dash',
-						dashLength: 8,
+						itemCount: 8,
+						scrollAlign: 'left',
 						//disableGrid:true
 					},
 					yAxis: {
-						gridType: 'dash',
+						gridType: 'solid',
 						gridColor: '#CCCCCC',
 						dashLength: 8,
+						splitNumber: 10,
+						min: 0,
+						max: 10000,
 					},
 					width: _self.cWidth * _self.pixelRatio,
 					height: _self.cHeight * _self.pixelRatio,
 					extra: {
 						line: {
-							type: 'curve'
+							type: 'straight'
 						}
 					}
 				});
 
 			},
 			touchLineA(e) {
-				lastMoveTime = Date.now();
+				canvaLineA.scrollStart(e);
 			},
 			moveLineA(e) {
-				let currMoveTime = Date.now();
-				let duration = currMoveTime - lastMoveTime;
-				if (duration < Math.floor(1000 / 60)) return; //每秒60帧
-				lastMoveTime = currMoveTime;
-
-				let currIndex = canvaLineA.getCurrentDataIndex(e);
-				if (currIndex > -1 && currIndex < canvaLineA.opts.categories.length) {
-					let riqi = canvaLineA.opts.categories[currIndex];
-					let leibie = canvaLineA.opts.series[0].name;
-					let shuju = canvaLineA.opts.series[0].data[currIndex];
-					this.Interactive = leibie + ':' + riqi + '-' + shuju + '元';
-				}
-				canvaLineA.showToolTip(e, {
-					format: function(item, category) {
-						return category + ' ' + item.name + ':' + item.data
-					}
-				});
+				canvaLineA.scroll(e);
 			},
 			touchEndLineA(e) {
-				let currIndex = canvaLineA.getCurrentDataIndex(e);
-				if (currIndex > -1 && currIndex < canvaLineA.opts.categories.length) {
-					let riqi = canvaLineA.opts.categories[currIndex];
-					let leibie = canvaLineA.opts.series[0].name;
-					let shuju = canvaLineA.opts.series[0].data[currIndex];
-					this.Interactive = leibie + ':' + riqi + '-' + shuju + '元';
-				}
+				canvaLineA.scrollEnd(e);
+				//下面是toolTip事件，如果滚动后不需要显示，可不填写
 				canvaLineA.touchLegend(e);
 				canvaLineA.showToolTip(e, {
 					format: function(item, category) {
@@ -150,6 +137,22 @@
 					}
 				});
 			},
+			changeData() {
+				if (isJSON(_self.textarea)) {
+					let newdata = JSON.parse(_self.textarea);
+					canvaLineA.updateData({
+						series: newdata.series,
+						categories: newdata.categories,
+						scrollPosition: 'right',
+						animation: false
+					});
+				} else {
+					uni.showToast({
+						title: '数据格式错误',
+						image: '../../../static/images/alert-warning.png'
+					})
+				}
+			}
 		},
 	}
 </script>
@@ -157,13 +160,13 @@
 <style>
 	.qiun-charts {
 		width: 750upx;
-		height: 600upx;
+		height: 500upx;
 		background-color: #FFFFFF;
 	}
-	
+
 	.charts {
 		width: 750upx;
-		height: 600upx;
+		height: 500upx;
 		background-color: #FFFFFF;
 	}
 </style>

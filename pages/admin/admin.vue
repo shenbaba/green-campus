@@ -7,8 +7,8 @@
 				<navigator url="./about-app"><icon type="" class="iconfont icon-huabanfuben"></icon></navigator>
 			</view>
 			<view class="admin-msg">
-				<view class="admin-img"  @click="chooseImag">
-					<icon type="" class="iconfont icon-account"></icon>
+				<view class="admin-img"  >
+					<image src="../../static/1.png" alt=""></image>
 				</view>
 				<view class="admin-user">
 					<text>admin:9527</text>
@@ -23,11 +23,13 @@
 					<text>告警</text>
 				</view>
 			</navigator>
+			<navigator url="serve_record/serve_record">
+				<view class="message">
+					<icon class="iconfont icon-xinxi" type=""></icon>
+					<text>服务记录</text>
+				</view>
+			</navigator>
 			
-			<view class="message">
-				<icon class="iconfont icon-xinxi" type=""></icon>
-				<text>消息</text>
-			</view>
 			<view class="attention">
 				<icon class="iconfont icon-guanzhu-" type=""></icon>
 				<text>关注</text>
@@ -67,14 +69,29 @@
 			</navigator>
 			
 			<navigator url="./work-day/work-day">
-				<view class="manage work-manage">
+				<view class="manage work-manage" style="border: none;">
 					<icon type="" class="iconfont icon-gongzuorili"></icon>
 					<text>工作日与假期配置</text>
 					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
 				</view>
 			</navigator>			
 		</view>
-		
+		<view class="question">
+			<navigator url="">
+				<view class="manage suggest">
+					<icon type="" class="iconfont icon-jilumian"></icon>
+					<text>意见反馈</text>
+					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
+				</view>
+			</navigator>
+			<navigator url="">
+				<view class="manage useuall_question" >
+					<icon type="" class="iconfont icon-changjianwenti"></icon>
+					<text>常见问题</text>
+					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
+				</view>
+			</navigator>
+		</view>
 	</view>
 </template>
 
@@ -83,32 +100,13 @@
 	export default {
 		data() {
 			return {
-				title: 'saveFile',
-				tempFilePath: '',
-				savedFilePath: ''
-
+				changeimg: '',
 			}
 		},
 		components:{
 			
 		},
 		methods: {
-			chooseImag(){
-				let that = this;
-				uni.chooseImage({
-						count: 1, //最多可以选择几张图片
-					    sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					    sourceType: ['album','camera'], //从相册选择
-					    success: function (res) {
-					       this.tempFilePath = res.tempFilePaths[0];
-						   if(this.tempFilePath.length>0){
-							   uni.uploadFile({
-								   
-							   })
-						   }
-					    }
-				})
-			},
 		}
 	}
 </script>
@@ -154,6 +152,10 @@
 }
 .admin-img .icon-account{
 	font-size: 60upx;
+}
+image{
+	width: 150upx;
+	height: 150upx;
 }
 .admin-user{
 	display: flex;
@@ -216,6 +218,11 @@
 }
 .manage icon{
 	margin-right: 20upx;
+}
+.question{
+	margin-top: 20upx;
+	font-size: 28upx;
+	background-color: #FFFFFF;
 }
 </style>
 	

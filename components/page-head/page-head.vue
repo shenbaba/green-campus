@@ -2,7 +2,7 @@
 	<view class="header">
 		<view class="page-header">
 			<icon type="" class="iconfont icon-arrow-lift" size="30" 
-			@touchstart="back()"
+			@click="back($event)"
 			v-show="bool"
 			></icon>
 			<view class="blank" v-show="!bool"></view>
@@ -11,8 +11,7 @@
 			</view>
 			<view class="blank"></view>
 		</view>
-		//这个空标签为了解决顶部导航脱离文档流后，页面内容挤上来
-		<view class="placeholder"></view>
+		
 	</view>
 </template>
 
@@ -35,32 +34,41 @@
 			}
 		},
 		methods: {
-			back(){
+			back(e){
 				uni.switchTab({
 					url:this.uRl
-				})
+				});
+				uni.redirectTo({
+					url:this.uRl
+				});
 			}
 		}
 	}
 </script>
 
 <style>
-.page-header{
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-	width: 750upx;
-	height: 120upx;
-	background-color: #008dff;
-	font-size: 28upx;
-	line-height: 28upx;
-	padding-left: 30upx;
-	padding-right: 30upx;
-	padding-bottom: 30upx;
-	box-sizing: border-box;
-	position: fixed;
-	top: 0;
-	z-index: 10;
+	.header{
+		box-sizing: border-box;
+		width: 750upx;
+		height: 120upx;
+		background-color: #147fd1;
+		font-size: 28upx;
+		line-height: 28upx;
+		padding-top: 40upx;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 10;
+	}
+	.page-header{
+		box-sizing: border-box;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		padding-left: 30upx;
+		padding-right: 30upx;
+	
 },
 .iconfont{
 	font-size: 50upx;
@@ -76,6 +84,7 @@
 	height: 60upx;
 }
 .placeholder{
-	height: 28upx;
+	height: 120upx;
+	width: 100%;
 }
 </style>

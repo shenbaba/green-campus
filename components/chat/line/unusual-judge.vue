@@ -34,7 +34,6 @@
 					url: 'https://www.ucharts.cn/data.json',
 					data: {},
 					success: function(res) {
-						console.log(res.data.data)
 						let LineA = {
 							categories: [],
 							series: []
@@ -59,7 +58,7 @@
 				};
 				LineA.categories = ["1:00", "2:00","3:00", "4:00", "5:00", "6:00","7:00","8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00",'22:00',"23:00","24:00"];
 				LineA.series = [{
-					"name": "临潼校区用能异常",
+					"name": "历史用量数据",
 					"data": [35, 8, 25, 37, 4, 20, 21, 31, 23, 23,12,21,70, 40, 65, 100, 44, 68,76,78,79,70,89,65]
 				}];
 				_self.showLineA("canvasLineA", LineA);
@@ -91,7 +90,6 @@
 						gridColor: '#CCCCCC',
 						gridType: 'dash',
 						dashLength: 8,
-						scrollShow:true,
 						//显示数量
 						itemCount:10,
 						scrollAlign:'left',
@@ -106,7 +104,7 @@
 					height: _self.cHeight * _self.pixelRatio,
 					extra: {
 						line: {
-							type: 'curve'
+							type: 'straight'
 						}
 					}
 				});

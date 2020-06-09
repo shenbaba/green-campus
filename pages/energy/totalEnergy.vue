@@ -69,7 +69,7 @@
 					  timeType:'day'
 				},
 			    success: (res) => {
-			        console.log(res.data);
+			       
 					this.enery.dayEnery = parseInt(res.data.detail[0].battery);
 			    }
 			});
@@ -81,7 +81,7 @@
 					  timeType:'year'
 				},
 			    success: (res) => {
-			        console.log(res.data);
+			        
 					this.enery.yearEnery = parseInt(res.data.detail[0].battery);
 			    }
 			});
@@ -93,7 +93,7 @@
 					  timeType:'month'
 				},
 			    success: (res) => {
-			        console.log(res.data);
+			        
 					this.enery.monthEnery = parseInt(res.data.detail[0].battery);
 			    }
 			});

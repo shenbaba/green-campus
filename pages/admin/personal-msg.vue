@@ -2,25 +2,29 @@
 	<view class="personal-page">
 		<head-top title="个人信息" uRl="../../pages/admin/admin"></head-top>
 		<view class="personal-photo">
-			<view class="photo">
-				<icon type="" class="iconfont icon-account"></icon>
-			</view>
+			<text>头像</text>
+			<image src="../../static/1.png" mode="widthFix" class="img"></image>
 		</view>
 		<view class="personal-message">
 			<view class="message username">
-				用户名： 9527 
+				<text>用户名</text>
+				<text>admin</text> 
 			</view>
 			<view class="message tel">
-				电    话： 13456789087
+				<text>电话</text>
+				<text>18691457890</text> 
 			</view>
 			<view class="message email">
-				电子邮箱：452523@163.com	
+				<text>邮箱</text>
+				<text>213124@163.com</text> 	
 			</view>
 			<view class="message idcade">
-				身份: 管理员	
+				<text>身份</text>
+				<text>管理员</text> 	
 			</view>
 			<view class="message id-number">
-				工号： 54523413	
+				<text>工号</text>
+				<text>12</text> 	
 			</view>
 		</view>
 		 <navigator url="../login/login-1"><button type="warn" @click="logout">退出登录</button></navigator>
@@ -44,7 +48,10 @@
 					url:'/api/logout',
 					method:"GET",
 					success: (res) => {
-						console.log(res);
+						uni.showToast({
+							title:'退出登录成功',
+							duration:1000
+						})
 					}
 				})
 			}
@@ -54,25 +61,27 @@
 
 <style>
 .personal-page{
-	font-size: 24upx;
+	font-size: 28upx;
+	background-color: #F0F3F6;
+	height: calc(100vh - 120upx);
+	padding-top: 120upx;
 }
 .personal-photo{
 	background-color: #f0f3f6;
 	text-align: center;
-	margin-top: 40upx;
-	height: 270upx;
+	margin-top: 10upx;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
+	padding: 32upx 28upx;
+	border-bottom: 1px solid rgba(187, 187, 187, 1);
+	border-top: 1px solid rgba(187, 187, 187, 1);
 }
-.photo{
-	width: 226upx;
-	height: 226upx;
-	border: 1px solid rgba(187, 187, 187, 1);
-	border-radius: 50%;
-	text-align: center;
-	line-height: 220upx;
-	}
+.img{
+	width: 100upx;
+	height: 150upx;
+	
+}
 .iconfont{
 	font-size: 60upx;
 	color: rgba(187, 187, 187, 1);
@@ -80,6 +89,8 @@
 .message{
 	padding: 32upx 28upx;
 	border-bottom: 1px solid rgba(187, 187, 187, 1);
+	display: flex;
+	justify-content: space-between;
 }
 button{
 	margin-top: 160upx;

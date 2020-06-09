@@ -17,26 +17,34 @@
 		}
         ,{
             "path" : "components/page-head/page-head",
-            "style" : {}
+            "style" : {
+				
+			}
         }
         ,{
             "path" : "pages/fee/totalCost",
             "style" : {
-				"navigationBarTitleText": "总费用"
+				"navigationBarTitleText": "总费用",
+				 "enablePullDownRefresh": true
 			}
         }
         ,{
-            "path" : "pages/fee/regionCost",
-            "style" : {}
+            "path" : "pages/index/regionCost",
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/fee/equipmentCost",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/energy/totalEnergy",
             "style" : {
-				"navigationBarTitleText": "总费用"
+				"navigationBarTitleText": "总费用",
+				 "enablePullDownRefresh": true
 			}
         }
         ,{
@@ -51,14 +59,7 @@
             "path" : "pages/admin/admin",
             "style" : {}
         }
-        ,{
-            "path" : "pages/alarm/alarm-type/alarm-type",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/alarm/alarm",
-            "style" : {}
-        }
+       
         ,{
             "path" : "pages/judge/judge",
             "style" : {}
@@ -77,7 +78,7 @@
         }
         ,{
             "path" : "pages/admin/user-manage/user-manage",
-            "style" : {}
+            "style" : { "enablePullDownRefresh": true}
         }
         ,{
             "path" : "pages/admin/equipment-manage/equipment-manage",
@@ -87,24 +88,23 @@
         }
         ,{
             "path" : "pages/admin/region-manage/region-manage",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/admin/indicator-manage/indicator-manage",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/admin/work-day/work-day",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
-        ,{
-            "path" : "pages/alarm/alarm-record/alarm-record",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/fee/balance",
-            "style" : {}
-        }
+  
         ,{
             "path" : "pages/login/login-1",
             "style" : {}
@@ -115,26 +115,108 @@
         }
         ,{
             "path" : "pages/admin/monthAlarm",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/index/noReadAlarm",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/query/rapport/rapport",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/query/history-data/history-data",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/query/history-dosage/history-dosage",
-            "style" : {}
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
         }
         ,{
             "path" : "pages/query/history-telemeterimg/history-telemeterimg",
+            "style" : {
+				 "enablePullDownRefresh": true
+			}
+        }
+        ,{
+            "path" : "pages/index/enery-analyze",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/judge/allDiaBattery",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/judge/Battery",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/judge/allDiaQuota",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/judge/allDiaDevice",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/admin/alarm_info",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/admin/serve_record/serve_record",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/balance",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/pay/pay",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/electricity/electricity",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/electricity/electticity_des",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/quota/quota",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/fee/WorkHolidayFree",
+            "style" : {}
+        }
+		,{
+		    "path" : "pages/judge/Diaquota",
+		    "style" : {}
+		}
+		,{
+		    "path" : "pages/judge/Diadevice",
+		    "style" : {}
+		}
+        ,{
+            "path" : "pages/admin/region-manage/chlid_region",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/login/findPassword",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/isReadAlarm",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/index/isRead_child",
             "style" : {}
         }
     ],
@@ -163,12 +245,7 @@
 	                "iconPath":"static/icon/company-fill%20(1).png",
 	                "selectedIconPath":"static/icon/company-fill.png"
 	            },
-	            {
-	                "pagePath":"pages/alarm/alarm",
-	                "text":"告警",
-	                "iconPath":"static/icon/message%20center%20(1).png",
-	                "selectedIconPath":"static/icon/message%20center.png"
-	            },
+	      
 	            {
 	                "pagePath":"pages/query/query-data",
 	                "text":"查询",

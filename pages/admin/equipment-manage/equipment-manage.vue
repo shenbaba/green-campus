@@ -3,16 +3,22 @@
 		<head-top title="设备管理" uRl="../../../pages/admin/admin"></head-top>
 		<view class="query">
 			<text>设备查询:</text>
-			<input type="text" value="锅炉" style="font-size: 24upx;" />
-			<button >查询</button>
+			<input type="text" value="" style="font-size: 24upx;" placeholder="通过设备名查询" v-model="devicename"/>
+			<button @click="chooseEq()">查询</button>
 		</view>
 		<view class="query-lists">
 			<ti-ps msg="设备列表"></ti-ps>
 			<view class="list" v-for="(item, index) in list" :key="index">
 				<text>设备名称： {{item.deviceName}}</text>
+				<text>设备编号：{{item.deviceNumber}}</text>
 				<text>所属人：{{item.deviceOwner}}</text>
 				<text>设备类型：{{item.deviceType}}</text>
-				<text>设备编号：{{item.deviceNumber}}</text>
+				<text>对应区域号：{{item.deviceRegionId}}</text>
+				<!-- <text>对应电表号：{{item.eletricMeterId}}</text> -->
+				<text>是否重要设备：{{item.isImportantEquipment}}</text>
+				<text>安装时间：{{item.installTime}}</text>
+				<text>安装地点：{{item.installAdress}}</text>
+				<text>维修电话：{{item.repairPhoneNumber}}</text>
 			</view>
 		</view>
 		<view class="more" v-show='loading'>
@@ -29,10 +35,12 @@
 	export default {
 		data() {
 			return {
-				loading : true
+				loading : true,
+				list :[],
+				devicename:''
 			}
 		},
-		mixins:[
+		/* mixins:[
 			BetterPull({
 				getPage(page, done){
 					uni.request({
@@ -42,7 +50,7 @@
 							pageSize :10 
 						},
 						success: (res) => {
-							/* this.list = res.data.detail */
+							this.list = res.data.detail 
 							done(res.data.detail);
 						},
 						fail: () => {
@@ -53,21 +61,38 @@
 				list : 'list',
 				page : 'page'
 			})
-		],
+		], */
 		components:{
 			headTop,
 			tiPs,
 			calenDar
 		},
 		methods: {
-			
+			chooseEq(){
+				this.list = [];
+				uni.request({
+					url:'/api/GreenCampus/device/search',
+					data:{
+						name:this.devicename	
+					},
+					success: (res) => {
+					
+						this.list = res.data.detail;
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
+					}
+				})
+			}
 		},
 		onShow() {
-			/* uni.request({
+			 uni.request({
 				url:'/api/GreenCampus/device/all',
 				data:{
 					pageNo : 1,
-					pageSize :10 
+					pageSize :100 
 				},
 				success: (res) => {
 					this.list = res.data.detail
@@ -75,7 +100,7 @@
 				fail: () => {
 					_self.tips = '网络错误'
 				}
-			}) */
+			})
 		}
 	}
 </script>

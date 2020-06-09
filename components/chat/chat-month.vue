@@ -58,9 +58,9 @@
 							let daylen = res.data.detail.length;
 							for(let i = 1 ; i<daylen;i++){
 								if(_self.category == 'free'){
-									Column.series[0].data.push(res.data.detail[i].free);
+									Column.series[0].data.push(parseFloat(res.data.detail[i].free) +'万');
 								}else if(_self.category == 'enery'){
-									Column.series[0].data.push(res.data.detail[i].battery);
+									Column.series[0].data.push(parseFloat(res.data.detail[i].free) +'万');
 									Column.series[0].name = '每日能耗';
 								}
 								Column.categories.push(i);
@@ -108,7 +108,6 @@
 						//网格线型：dash 虚线  solid 实线
 						gridType: 'dash',
 						itemCount:12,
-						scrollShow:true,
 						scrollAlign:'left',
 					},
 					// y轴显示的内容
@@ -123,7 +122,7 @@
 						min: 0,
 						max: 3000,
 						format: (val) => {
-							return val.toFixed(0) + '元'
+							return val.toFixed(0) + '万'
 						}
 					},
 					width: _self.cWidth * _self.pixelRatio,
