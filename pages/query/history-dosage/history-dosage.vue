@@ -4,16 +4,6 @@
 		
 		<calen-dar></calen-dar>
 		
-		<view class="query">
-			<text>时间类型:</text>
-			<label class="radio">
-				<radio value="" /><text>小时</text>
-				<radio value="" /><text>日</text>
-				<radio value="" /><text>月</text>
-				<radio value="" /><text>年</text>
-			</label>
-			<button>查询</button>
-		</view>
 		
 		<view class="query-lists">
 			<!-- 历史用量数据图表 -->
@@ -54,7 +44,7 @@
 		methods: {
 			onShow() {
 				uni.request({
-					url:'/api/GreenCampus/user/all',
+					url:'http://118.178.126.209:8085/GreenCampus/user/all',
 					data:{
 						pageNo: 1,
 						pageSize :10

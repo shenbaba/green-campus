@@ -5,7 +5,7 @@
 				<view class="uni-list-cell">
 					<view class="uni-list-cell-db">
 						<picker @change="bindPickerChange" :value="index" :range="array" >
-							<view class="uni-input">{{array[index]}}</view>
+							<view class="uni-input" style="width: 100upx;">{{array[index]}}</view>
 						</picker>
 						<icon type="" class="iconfont icon-arrowdown"></icon>
 					</view>
@@ -46,6 +46,8 @@
 					</view>
 				</view>
 			</navigator>
+			<image src="../../static/image/bg-3.png" mode="" class="img_1"></image>
+			<image src="../../static/image/tree.png" mode="" class="img_2"></image>
 		</view>
 		<view class="nav_free">
 			<navigator url="./regionCost">
@@ -54,10 +56,10 @@
 					<text>电费账单</text>
 				</view>
 			</navigator>
-			<navigator url="./enery-analyze">
+			<navigator url="../fee/regionElc">
 				<view class="enery_analyze">
 					<icon type="" class="iconfont icon-icon-"></icon>
-					<text>用能分析</text>
+					<text>区域能耗</text>
 				</view>
 			</navigator>
 			<navigator url="../fee/equipmentCost">
@@ -92,6 +94,12 @@
 					<text>能耗排名</text>
 				</view>
 			</navigator>
+			<navigator url="./enery-analyze">
+				<view class="banner_list">
+					<icon type="" class="iconfont icon-nengyuannenghaoguanli" style="color: #00BA0C;"></icon>
+					<text>用能分析</text>
+				</view>
+			</navigator>
 			<navigator url="./quota/quota">
 				<view class="banner_list">
 					<icon class="iconfont icon-gantanhaotishi-kuai" type=""></icon>
@@ -104,16 +112,10 @@
 					<text>未读告警</text>
 				</view>
 			</navigator>
-			<navigator url="">
+			<navigator url="../admin/serve_record/serve_record">
 				<view class="banner_list">
 					<icon class="iconfont icon-jilumian" type="" style="color: #fa9f56;"></icon>
 					<text>服务记录</text>
-				</view>
-			</navigator>
-			<navigator url="">
-				<view class="banner_list">
-					<icon class="iconfont icon-rongqi222" type="" style="color: #7dc5eb;"></icon>
-					<text>需量值变更</text>
 				</view>
 			</navigator>
 			<navigator url="">
@@ -123,9 +125,21 @@
 				</view>
 			</navigator>
 		</view>
-		<!-- <view class="actions">
-			<ti-ps msg="区域能耗分析"></ti-ps>
-		</view> -->
+		<view class="actions">
+			<ti-ps msg="子区域列表"></ti-ps>
+			<view class="ele_list">
+				<view class="list_head">
+					<text>区域名</text>
+					<text>面积(平米)</text>
+					<text>管理人员</text>
+				</view>
+				<view class="lists" v-for="(items,inex) in regionData" :key="inex">
+					<text>{{items.regionName}}</text>
+					<text>{{items.area}}</text>
+					<text>{{items.manager}}</text>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -139,6 +153,7 @@
 				title: 'Hello',
 				array: ['临潼', '雁塔', '秦汉'],
 				index: 0,
+				regionData:[]
 			}
 		},
 		components: {
@@ -150,14 +165,6 @@
 
 		},
 		methods: {
-			next() {
-				//跳转页面，该方法会将地址加入堆栈
-				uni.navigateTo({
-					url: '../fee/totalCost',
-					animationType: 'pop-in',
-					animationDuration: 200
-				});
-			},
 			bindPickerChange: function(e) {
 				
 				this.index = e.target.value
@@ -170,7 +177,18 @@
 						 })
 					}
 				})
+			},
+			getMainRegion(){
+				uni.request({
+					url:'http://118.178.126.209:8085/GreenCampus/region/main',
+					success: (res) => {
+						this.regionData = res.data.detail;
+					}
+				})
 			}
+		},
+		mounted() {
+			this.getMainRegion();
 		}
 	}
 </script>
@@ -181,13 +199,13 @@
 		color: #FFFFFF;
 		position: relative;
 		overflow: hidden;
-		padding-top: 160upx;
+		/* padding-top: 160upx; */
 		background-color: #F0F3F6;
 	}
 	.header {
-		position: fixed;
+		/* position: fixed;	 */
 		box-sizing: border-box;
-		top:0;
+		/* top:0; */
 		width: 750upx;
 		height: 160upx;
 		background-color: #147fd1;
@@ -221,7 +239,8 @@
 			color: #FFFFFF;
 			padding: 0;
 			.uni-list-cell-db{
-				width: 200upx;
+				width: 100upx;
+				margin-left: 30upx;
 				border: none;
 				display: flex;
 				justify-content: space-around;
@@ -237,6 +256,7 @@
 		width: 100vw;
 		height: 320upx;
 		padding:30upx 20upx;
+		position: relative;
 		background-image: linear-gradient(#147fd1, #6caef8);
 		.region_name{
 			margin-left: 16upx;
@@ -244,6 +264,18 @@
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
+		}
+		.img_1{
+			position: absolute;
+			top: 20upx;
+			right: -100upx;
+			transform: scale(0.4);
+		}
+		.img_2{
+			position: absolute;
+			top: 60upx;
+			left: -240upx;
+			transform: scale(0.14);
 		}
 		.balance_n{
 			margin-left: 100upx;
@@ -348,5 +380,21 @@
 		background-color: #FFFFFF;
 		padding: 30upx;
 		margin-top: -10upx;
+	}
+	.ele_list {
+		margin: 20upx 0;
+		view {
+			display: grid;
+			grid-template-columns: 30% 30% 30%;
+			text-align: center;
+			padding: 20upx 0;
+		}
+	
+		.list_head {
+			background-color: #F0F3F6;
+			padding: 10upx 0;
+			font-size: 24upx;
+			color: #64696d;
+		}
 	}
 </style>

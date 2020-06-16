@@ -10,7 +10,7 @@
 			<text >请输入账户</text>
 			<input  type="text" clearable focus v-model="account"  placeholder="账户"></input>
 			<text >请输入新密码</text>
-			<input  type="text" clearable focus v-model="password"  placeholder="密码"></input>	
+			<input  type="password" clearable focus v-model="password"  placeholder="密码"></input>	
 			<button type="primary" @click="sendEamil()">发送验证邮件</button>
 			<view class="" v-if='bool'>
 				<text >请输入验证码</text>

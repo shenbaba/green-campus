@@ -34,7 +34,7 @@
 		methods: {
 			getQUota(){
 				uni.request({
-					url:'/api/GreenCampus/quota/allQuota',
+					url:'http://118.178.126.209:8085/GreenCampus/quota/allQuota',
 					data:{
 						pageNo : 1,
 						pageSize:10,
@@ -46,7 +46,10 @@
 						this.list = res.data.detail;
 					},
 					fail: () => {
-						
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				})
 			}

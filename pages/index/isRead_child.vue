@@ -20,17 +20,13 @@
 			}
 		},
 		methods: {
-			renderTime(date) {
-			  let dateee = new Date(date).toJSON();
-			  return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
-			},
 		},
 		onLoad(option){
 			this.indexs = option.index;
 		},
 		mounted() {
 			uni.request({
-				url:'/api/GreenCampus/alarm/oneAlarmRecord',
+				url:'http://118.178.126.209:8085/GreenCampus/alarm/oneAlarmRecord',
 				data:{
 					alarmRecordId : this.indexs
 				},
@@ -44,7 +40,7 @@
 						}else if(this.list.isReaded == 1){
 							this.list.isReaded = '是'
 						}
-						this.list.alarmTime = this.renderTime(this.list.alarmTime);
+						item.alarmTime = item.alarmTime.split('T')[0]+'  '+item.alarmTime.split('T')[1].split('+')[0];
 					}
 				}
 				

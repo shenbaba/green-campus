@@ -43,7 +43,7 @@
 			chooseRegion(){
 				this.list = [];
 				uni.request({
-					url:'/api/GreenCampus/region/search',
+					url:'http://118.178.126.209:8085/GreenCampus/region/search',
 					data:{
 						regionName:this.regioname
 					},
@@ -66,7 +66,7 @@
 		onShow() {
 			
 			uni.request({
-				url:'/api/GreenCampus/region/main',
+				url:'http://118.178.126.209:8085/GreenCampus/region/main',
 				/* data:{
 					pageNo:1,
 					pageSize:100
@@ -76,7 +76,10 @@
 					
 				},
 				fail: () => {
-					_self.tips =  "网络错误，请刷新"
+					uni.showToast({
+						title:'网络出错',
+						icon:'none'
+					})
 				}
 			})
 			this.loading = true;

@@ -8,7 +8,7 @@
 			</view>
 			<view class="list" v-for="(item, index) in listFree" :key="index" v-if='bool'>
 				<view style="text-align: center;">{{item.workHolidayName}}</view>
-				<!-- <view>开始时间:{{item.startTime}}</view> -->
+				
 				<view class="ele_list">
 					<view class="list_head">
 						<text>时间</text>
@@ -23,11 +23,11 @@
 						<text>{{totalFree[index]}}</text>
 					</view>
 				</view>
-				<!-- <view>结束时间:{{item.endTime}}</view> -->
+				
 			</view>
 			<view class="list" v-for="(item, index) in listEle" :key="index" v-if='!bool'>
 				<view style="text-align: center;">{{item.workHolidayName}}</view>
-				<!-- <view>开始时间:{{item.startTime}}</view> -->
+				
 				<view class="ele_list">
 					<view class="list_head">
 						<text>时间</text>
@@ -42,7 +42,7 @@
 						<text>{{totalEle[index]}}</text>
 					</view>
 				</view>
-				<!-- <view>结束时间:{{item.endTime}}</view> -->
+			
 			</view>
 		</view>
 	</view>
@@ -68,51 +68,48 @@
 				this.show = index;
 				this.bool = !this.bool
 			},
-			renderTime(date) {
-			  let dateee = new Date(date).toJSON();
-			  return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
-			},
 			getInfo() {
 				uni.request({
-					url: '/api/GreenCampus/free/allWorkHolidayFree',
+					url: 'http://118.178.126.209:8085/GreenCampus/free/allWorkHolidayFree',
 					success: (res) => {
 						this.listFree = res.data.detail;
 						let len = this.listFree.length;
 						for(let i = 0; i<len; i++){
-							this.listFree[i].startTime = this.renderTime(this.listFree[i].startTime);
-							this.listFree[i].endTime = this.renderTime(this.listFree[i].endTime);
+							this.totalFree.push(this.listFree[i].batteryFreeVOList.shift().free);
 							this.listFree[i].batteryFreeVOList.forEach((item)=>{
-								item.time = this.renderTime(item.time);
+								item.time = item.time.split('T')[0];
 							})
-						    this.totalFree.push(this.listFree[i].batteryFreeVOList.shift().free);
-							
-							
+						   
 						}
 						
 					},
 					fail: () => {
-
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				});
 				uni.request({
-					url: '/api/GreenCampus/elec/allWorkHoliday',
+					url: 'http://118.178.126.209:8085/GreenCampus/elec/allWorkHoliday',
 					success: (res) => {
 						
 						this.listEle = res.data.detail;
 						let len = this.listEle.length;
 						for(let i = 0; i<len; i++){
-							this.listEle[i].startTime = this.renderTime(this.listEle[i].startTime);
-							this.listEle[i].endTime = this.renderTime(this.listEle[i].endTime);
+							this.totalEle.push(this.listEle[i].batteryVOList.shift().battery);
 							this.listEle[i].batteryVOList.forEach((item)=>{
-								item.time = this.renderTime(item.time);
+								item.time = item.time.split('T')[0];
 							})
-							 this.totalEle.push(this.listEle[i].batteryVOList.shift().battery);
-					
+							 
 						}
-						
+
 					},
 					fail: () => {
-				
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				})
 			}

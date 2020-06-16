@@ -20,16 +20,14 @@
 			<view class="">|</view>
 			<view class="hidden_scroll">
 				<view class="select_month">
-					<view v-for="(item, index) in month" :key="index" 
-					 :class="{active:show == item}"
-					 @click="getInfo(item)">{{item}}</view>
+					<view v-for="(item, index) in month" :key="index" :class="{active:show == item}" @click="getInfo(item)">{{item}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="Money">
 			<view class="total_money">
 				<view class="Money_n">
-					<text style="color: #0c82f0; font-size: 40upx;" >{{msgFormSon[0]}}</text>
+					<text style="color: #0c82f0; font-size: 40upx;">{{msgFormSon[0]}}</text>
 					<text style="font-size: 26upx; color: #626971;">合计金额（元）</text>
 				</view>
 				<view class="dosage">
@@ -50,7 +48,7 @@
 		</view>
 		<view class="ladder">
 			<text style=" text-align: center;display: block;color: #616161;font-size: 30upx;">阶梯电量使用情况</text>
-			<ProgressBar :Width="99" Type="aqua" :Vice="false" ></ProgressBar>
+			<ProgressBar :Width="99" Type="aqua" :Vice="false"></ProgressBar>
 			<view class="ladder_list">
 				<view class="ladder_1">
 					<text style="color: #a2d995;font-size: 30upx;">0-2160</text>
@@ -71,25 +69,25 @@
 				<view class="item"></view>
 				<view class="item">单价</view>
 				<view class="item">计费数量(千瓦时)</view>
-				<view class="item">金额(元)</view>
+				<!-- <view class="item">金额(元)</view> -->
 			</view>
 			<view class="table_content">
 				<view class="item">一档用电</view>
 				<view class="item">0.4983</view>
 				<view class="item">2160</view>
-				<view class="item">{{(2160*0.4983).toFixed(2)}}</view>
+<!-- 				<view class="item">{{(2160*0.4983).toFixed(2)}}</view> -->
 			</view>
 			<view class="table_content">
 				<view class="item">二档用电</view>
 				<view class="item">0.5483</view>
 				<view class="item">2040</view>
-				<view class="item">{{(2040*0.5483).toFixed(2)}}</view>
+				<!-- <view class="item">{{(2040*0.5483).toFixed(2)}}</view> -->
 			</view>
 			<view class="table_content">
 				<view class="item">三档用电</view>
 				<view class="item">0.7683</view>
-				<view class="item">{{msgFormSon[2]-4200}}</view>
-				<view class="item">{{((msgFormSon[2]-4200)*0.7683).toFixed(2)}}</view>
+				<view class="item">{{msgFormSon[2]-4201}}</view>
+				<!-- <view class="item">{{((msgFormSon[2]-4200)*0.7683).toFixed(2)}}</view> -->
 			</view>
 		</view>
 		<view class="dianbiao">
@@ -99,7 +97,7 @@
 				<text>用电量(千瓦时)</text>
 			</view>
 			<view class="dianbiao_date">
-				<text>区域总表1</text>
+				<text>48202F205445</text>
 				<text>1</text>
 				<text>{{msgFormSon[2]}}</text>
 			</view>
@@ -128,78 +126,81 @@
 
 			return {
 				title: '电费账单',
-				msgFormSon:[],
-				time:'',array: ['2020', '2019', '2018'],
-				month:[1,2,3,4,5,6,7,8,9,10,11,12],
+				msgFormSon: [],
+				time: '',
+				array: ['2020', '2019', '2018'],
+				month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
 				index: 0,
-				show : 1,
-				monthDate:{
-					timeType:'month',
-					startTime:1577808000000
-				}
+				show: 1,
 			}
 		},
 		components: {
 			headTop,
-			
+
 		},
 		computed: {
 
 		},
 		methods: {
 			bindPickerChange: function(e) {
-				
+
 				this.index = e.target.value;
 				this.getRegion();
 			},
-			getInfo(ind){
+			getInfo(ind) {
 				this.show = ind;
 				this.getRegion();
 			},
 			//将时间戳转化为正常格式
-			renderTime(date) {
-			  let dateee = new Date(date).toJSON();
-			  return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
-			},
-			timestamp(){
-				let time = this.array[this.index] +'-'+ this.show;
-				let stamp =  (new Date(time)).valueOf();
+			
+			timestamp() {
+				let time = this.array[this.index] + '-' + '0' + this.show + '-' + '01';
+				let stamp = new Date(time.replace(/\-/g, "/")).valueOf();
 				return stamp;
 			},
-			getRegion(){
+			getRegion() {
 				this.msgFormSon = [];
-				this.monthDate.startTime = this.timestamp();
+				let Time = this.timestamp();
 				uni.request({
-					url:'/api/GreenCampus/free/all',
-					data:this.monthDate,
+					url: 'http://118.178.126.209:8085/GreenCampus/free/all',
+					data: {
+						timeType: 'month',
+						endTime: 1609257600000,
+						startTime: Time
+					},
 					success: (res) => {
+						
 						this.msgFormSon.push(res.data.detail[1].free);
-						let date = res.data.detail[1].time;
-						this.msgFormSon.push(this.renderTime(date));
+						this.msgFormSon.push(res.data.detail[1].time.split('T')[0]);
 						uni.request({
-							url:'/api/GreenCampus/elec/allRegionElecSum',
-							data:this.monthDate,
+							url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+							data:  {
+								timeType: 'month',
+								endTime: 1609257600000,
+								startTime: Time
+							},
 							success: (res) => {
+
 								this.msgFormSon.push(res.data.detail[1].battery);
 							},
 							fail: () => {
 								uni.showToast({
-									title:'网络出错'
+									title: '网络出错'
 								})
 							}
 						})
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title: '网络出错'
 						})
 					}
 				});
-				
-			} 
+
+			}
 		},
-		onLoad() {
-			 this.getRegion(); 
+		onShow() {
+			this.getRegion();
 		}
 	}
 </script>
@@ -215,7 +216,7 @@
 		margin: 10upx auto;
 		width: 92%;
 		padding: 10upx 20upx;
-		
+
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
@@ -240,17 +241,18 @@
 			color: #626971;
 		}
 	}
+
 	.select_time {
 		background-color: #FFFFFF;
 		padding: 20upx 30upx;
 		display: flex;
-	
+
 		.hidden_scroll {
 			overflow: hidden;
 			height: 50upx;
 			width: 1500upx;
 		}
-	
+
 		.select_month {
 			width: 500upx;
 			margin-left: 20upx;
@@ -258,36 +260,37 @@
 			flex-wrap: nowrap;
 			overflow-x: scroll;
 			height: 70upx;
-	
+
 			.select_month::-webkit-scrollbar {
 				width: 0;
 			}
-	
+
 			view {
 				display: block;
 				margin-right: 40upx;
 				padding: 0 40upx;
 				height: 40upx;
-				
+
 				border-radius: 20upx;
 				text-align: center;
 			}
-			.active{
+
+			.active {
 				border: 1px #007AFF solid;
 			}
 		}
 	}
-	
+
 	.uni-list {
 		width: 120upx;
-	
+
 		.uni-list-cell {
 			background-color: rgba(0, 0, 0, 0);
 			border: none;
 			color: #000000;
 			font-weight: 400;
 			padding: 0;
-	
+
 			.uni-list-cell-db {
 				width: 200upx;
 				border: none;
@@ -295,81 +298,101 @@
 				justify-content: space-around;
 				padding: 0;
 			}
-	
+
 			.uni-input {
 				font-size: 34upx;
 			}
 		}
 	}
-	.Money{
+
+	.Money {
 		background-color: #FFFFFF;
 		margin-top: 4upx;
 		padding: 20upx 30upx;
 		color: #303030;
-		.total_money,.total_ele{
+
+		.total_money,
+		.total_ele {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			padding: 20upx 0;
 			border-bottom: 1px #F0F3F6 solid;
 		}
-		.Money_n,.dosage{
+
+		.Money_n,
+		.dosage {
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
 			align-items: flex-start;
-			
+
 		}
-		.dosage{
+
+		.dosage {
 			align-items: flex-end;
 		}
 	}
-	.ladder{
+
+	.ladder {
 		margin-top: 10upx;
 		background-color: #FFFFFF;
 		padding: 20upx;
-		.ladder_list{
+
+		.ladder_list {
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
-			view{
+
+			view {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 			}
 		}
 	}
-	.price,.dianbiao{
+
+	.price,
+	.dianbiao {
 		margin: 10upx auto;
 		width: 100%;
 		padding: 20upx 0 10upx;
 		background-color: #FFFFFF;
 		border-radius: 10upx;
 		color: #303030;
-		.table_head,.table_content{
+
+		.table_head,
+		.table_content {
 			display: grid;
-			grid-template-columns: 20%  25%  30%  25%;
+			grid-template-columns: 30% 30% 30% ;
 			text-align: center;
 			margin-bottom: 20upx;
 		}
-		.table_head,.dianbiao_head{
+
+		.table_head,
+		.dianbiao_head {
 			padding-bottom: 10upx;
 			border-bottom: 1px #F0F3F6 solid;
 			color: #bebebe;
 		}
-		.dianbiao_head,.dianbiao_date{
+
+		.dianbiao_head,
+		.dianbiao_date {
 			display: grid;
-			grid-template-columns: 30%  40%  30%;
+			grid-template-columns: 30% 40% 30%;
 			text-align: center;
 			margin-bottom: 20upx;
 		}
-		
+
 	}
-	.history_record{
+
+	.history_record {
 		background-color: #FFFFFF;
-	
+
 		margin-top: 20upx;
-		.history_ele,.view_record{
+
+		.history_ele,
+		.view_record {
 			border-bottom: 1px #F0F3F6 solid;
 			padding: 20upx 30upx;
 		}

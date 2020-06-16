@@ -3,7 +3,7 @@
 		<headTop :title="title"  uRl="./index"></headTop>
 		<view class="region_info">
 			<icon type="" class="iconfont icon-quyuguanli"></icon>
-			<text>临潼 (662898771)</text>
+			<text>临潼 (48202F205445)</text>
 			<text style="float: right">区域能效</text>
 		</view>
 		<view class="ele_tend">
@@ -132,7 +132,7 @@
 	}
 	.label_list{
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-around;
 		align-items: center;
 		margin-top: 40upx;
 		text-align: center;

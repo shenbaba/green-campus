@@ -48,8 +48,6 @@
 				};
 				let le =this.d.length;
 				for(let i = 1;i<le;i++){
-				
-					
 					 Column.series[0].data.push(this.d[i].free.toFixed(2));
 					Column.categories.push(i);
 				}

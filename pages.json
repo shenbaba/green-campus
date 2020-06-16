@@ -3,12 +3,12 @@
 	  "nvueCompiler":"uni-app" //是否启用 uni-app 模式
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
+		/* {
 			"path": "pages/login/login-1",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
-		},
+		}, */
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -22,37 +22,25 @@
 			}
         }
         ,{
-            "path" : "pages/fee/totalCost",
-            "style" : {
-				"navigationBarTitleText": "总费用",
-				 "enablePullDownRefresh": true
-			}
-        }
-        ,{
             "path" : "pages/index/regionCost",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
         ,{
             "path" : "pages/fee/equipmentCost",
             "style" : {
-				 "enablePullDownRefresh": true
+				 
 			}
         }
         ,{
             "path" : "pages/energy/totalEnergy",
             "style" : {
-				"navigationBarTitleText": "总费用",
-				 "enablePullDownRefresh": true
+				"navigationBarTitleText": "总费用"
 			}
         }
         ,{
             "path" : "pages/energy/regionEnergy",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/energy/equipmentEnergy",
             "style" : {}
         }
         ,{
@@ -78,30 +66,30 @@
         }
         ,{
             "path" : "pages/admin/user-manage/user-manage",
-            "style" : { "enablePullDownRefresh": true}
+            "style" : {}
         }
         ,{
             "path" : "pages/admin/equipment-manage/equipment-manage",
             "style" : {
-				"enablePullDownRefresh": true
+				
 			}
         }
         ,{
             "path" : "pages/admin/region-manage/region-manage",
             "style" : {
-				 "enablePullDownRefresh": true
+				 
 			}
         }
         ,{
             "path" : "pages/admin/indicator-manage/indicator-manage",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
         ,{
             "path" : "pages/admin/work-day/work-day",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
   
@@ -116,31 +104,31 @@
         ,{
             "path" : "pages/admin/monthAlarm",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
         ,{
             "path" : "pages/query/rapport/rapport",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
         ,{
             "path" : "pages/query/history-data/history-data",
             "style" : {
-				 "enablePullDownRefresh": true
+				 
 			}
         }
         ,{
             "path" : "pages/query/history-dosage/history-dosage",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
         ,{
             "path" : "pages/query/history-telemeterimg/history-telemeterimg",
             "style" : {
-				 "enablePullDownRefresh": true
+				
 			}
         }
         ,{
@@ -217,6 +205,10 @@
         }
         ,{
             "path" : "pages/index/isRead_child",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/fee/regionElc",
             "style" : {}
         }
     ],

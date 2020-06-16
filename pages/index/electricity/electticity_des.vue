@@ -117,44 +117,39 @@
 				this.showDay = index;
 				this.boolDay = !this.boolDay;
 			},
-			renderTime(date) {
-				let dateee = new Date(date).toJSON();
-				return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '').split('-')[1]+'月'
-			},
-			renderDay(date) {
-				let dateee = new Date(date).toJSON();
-				return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '').split('T')[0]
-			},
 			getMonthFree() {
 				uni.request({
-					url: '/api/GreenCampus/elec/allRegionElecSum',
+					url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 					data: {
-						endTime: 1609257600000,
+						endTime: 1609344000000,
 						startTime: 1577808000000,
 						timeType: 'month'
 					},
 					success: (res) => {
-					
 						this.list = res.data.detail;
-						this.list.forEach((item) => {
-							item.time = this.renderTime(item.time);
-						})
 						this.listTime.push(this.list.shift().battery);
+						this.list.forEach((item) => {
+							item.time = item.time.split('-')[1]+'月';
+						})
 						uni.request({
-							url: '/api/GreenCampus/free/all',
+							url: 'http://118.178.126.209:8085/GreenCampus/free/all',
 							data: {
-								endTime: 1609257600000,
+								endTime: 1609344000000,
 								startTime: 1577808000000,
 								timeType: 'month'
 							},
 							success: (res) => {
-							
 								for(let i = 0;i<this.list.length;i++){
 									this.list[i].free = res.data.detail[i+1].free;
 								}
 								this.totalFree.push(res.data.detail.shift().free);
 							}
 						});
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错'
+						})
 					}
 				});
 			},
@@ -164,7 +159,7 @@
 				let endtime = new Date().valueOf();
 				let starttime = endtime - 7*24*60*60*1000;
 				uni.request({
-					url:'/api/GreenCampus/elec/allRegionElecSum',
+					url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime : endtime,
 						startTime : starttime,
@@ -174,10 +169,16 @@
 						this.totalDay.push(res.data.detail.shift().battery);
 						this.dayEle = res.data.detail;
 						this.dayEle.forEach((item) => {
-							item.time = this.renderDay(item.time);
+							item.time = item.time.split('T')[0];
 						})
 						
 						this.dayEle.reverse();
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				})
 			},
@@ -187,7 +188,7 @@
 				let endtime = new Date().valueOf();
 				let starttime = endtime - 30*24*60*60*1000;
 				uni.request({
-					url:'/api/GreenCampus/elec/allRegionElecSum',
+					url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime : endtime,
 						startTime : starttime,
@@ -197,7 +198,7 @@
 						this.totalDay.push(res.data.detail.shift().battery);
 						this.dayEle = res.data.detail;
 						this.dayEle.forEach((item) => {
-							item.time = this.renderDay(item.time);
+							item.time =  item.time.split('T')[0];
 						})
 						this.dayEle.reverse();
 					}

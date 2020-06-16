@@ -31,7 +31,7 @@
 		methods: {
 			getServerData() {
 				uni.request({
-					url: '/api/GreenCampus/elec/getOneRegion',
+					url: 'http://118.178.126.209:8085/GreenCampus/elec/getOneRegion',
 					data: {
 						endTime: 1609344000000,
 						startTime: 1577808000000,

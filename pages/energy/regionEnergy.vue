@@ -3,16 +3,16 @@
 		<headTop title="能耗排名" uRl='../index/index'></headTop>
 		<view class="select">
 			<view class="">
-				<text :class="{active:shows == 1}" @click="Show(1)">主要区域能耗排名</text>
-				<text :class="{active:shows == 2}"  @click="Show(2)">重要设备能耗排名</text>	
+				<text :class="{active:shows == 1}" @click="Show(1)">主要区域能耗对比</text>
+				<text :class="{active:shows == 2}"  @click="Show(2)">重要设备能耗对比</text>	
 			</view>
 		</view>
 		<view class="region" v-if="bool">
-			<ti-ps msg="主要区域能耗排名"></ti-ps>
+			<ti-ps msg="主要区域能耗占比"></ti-ps>
 			<region-rank></region-rank>
 			<view class="list_rank">
 				<view class="title">
-					主要区域能耗排序
+					主要区域年能耗排名
 				</view>
 				<view class="ele_list">
 					<view class="list_head">
@@ -27,11 +27,11 @@
 			</view>
 		</view>
 		<view class="equip" v-if="!bool">
-			<ti-ps msg="重要设备能耗排名"></ti-ps>
+			<ti-ps msg="重要设备能耗占比"></ti-ps>
 			<equip-rank></equip-rank>
 			<view class="list_rank">
 				<view class="title">
-					重要设备能耗排序
+					重要设备年能耗排名
 				</view>
 				<view class="ele_list">
 					<view class="list_head">
@@ -50,8 +50,8 @@
 
 <script>
 	import tiPs from "@/components/page-tips/tips.vue"
-	import regionRank from "@/components/chat/column/region_rank.vue"
-	import equipRank from "@/components/chat/column/equip_rank.vue"
+	import regionRank from "@/components/chat/pie/regionEnegy-pie.vue"
+	import equipRank from "@/components/chat/pie/equip_rank.vue"
 	export default {
 		data() {
 			return {
@@ -73,7 +73,7 @@
 			},
 			getRank(){
 				uni.request({
-					url:'/api/GreenCampus/elec/sortRegion',
+					url:'http://118.178.126.209:8085/GreenCampus/elec/sortRegion',
 					data:{
 						timeType:'year',
 						startTime:1577808000000,
@@ -83,10 +83,16 @@
 					},
 					success: (res) => {
 						this.list = res.data.detail.reverse();
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				})
 				uni.request({
-					url:'/api/GreenCampus/elec/sortDevice',
+					url:'http://118.178.126.209:8085/GreenCampus/elec/sortDevice',
 					data:{
 						timeType:'year',
 						startTime:1577808000000,
@@ -96,6 +102,12 @@
 					},
 					success: (res) => {
 						this.listE = res.data.detail.reverse();
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				})
 			}

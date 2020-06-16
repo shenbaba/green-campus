@@ -24,25 +24,27 @@
 			</view>
 			<view class="login">
 				<navigator url="../login/login-1"><text>已有账号</text></navigator>
-			
+
 			</view>
 			<view class="btn-row">
 				<button type="primary" class="primary reg" @click="register">注册</button>
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 
 <script>
-import { Base64 } from 'js-base64';
+	import {
+		Base64
+	} from 'js-base64';
 	export default {
 		data() {
 			return {
 				account: '',
 				password: '',
-				password1:'',
-				email:''
+				password1: '',
+				email: ''
 			}
 		},
 		methods: {
@@ -51,53 +53,57 @@ import { Base64 } from 'js-base64';
 				 * 客户端对账号信息进行一些必要的校验。
 				 * 实际开发中，根据业务需要进行处理，这里仅做示例。
 				 */
-				let reg2=/[a-z0-9A-Z]{6,8}/; //长度8-16位数字加字母组合
-			
+				let reg2 = /[a-z0-9A-Z]{6,8}/; //长度8-16位数字加字母组合
+
 				if (!reg2.test(this.password)) {
 					uni.showToast({
 						icon: 'none',
 						title: '密码格式错误'
 					});
 					return;
-				}
-				else if (this.password !== this.password1) {
+				} else if (this.password !== this.password1) {
 					uni.showToast({
 						icon: 'none',
 						title: '两次输入密码不一致'
 					});
 					return;
-				}else{
-					let json = {userName:this.account, password:Base64.encode(this.password1), email:this.email}
+				} else {
+					let json = {
+						userName: this.account,
+						password: Base64.encode(this.password1),
+						email: this.email
+					}
 					uni.request({
-						url:'/api/GreenCampus/user/add',
-						method:'POST',
-						data:json,
-						header:{
-							"content-type":"application/x-www-form-urlencoded",
+						url: '/api/GreenCampus/user/add',
+						method: 'POST',
+						data: json,
+						header: {
+							"content-type": "application/x-www-form-urlencoded",
 						},
 						success: (res) => {
-							
-							
-							if(res.data.success == true){
-								
-								uni.navigateTo({
-									url:'../login/login-1',
-									success: () => {
-										uni.showToast({
-											title:'注册成功',
-											duration: 1000
-										});
-									}
-								})
-							}else{
+							if (res.data.success == true) {
 								uni.showToast({
-									title:'该用户已存在',
+									title: '注册成功',
 									duration: 1000,
+									success: () => {
+										setTimeout(function() {
+											uni.navigateTo({
+												url: '../login/login-1',
+											})
+										},1000)
+									}
+
+								})
+							} else {
+								uni.showToast({
+									title: '该用户已存在',
+									duration: 1000,
+									icon: 'none'
 								})
 							}
 						},
 						fail: () => {
-							
+
 						}
 					})
 				}
@@ -106,7 +112,7 @@ import { Base64 } from 'js-base64';
 					password: this.password,
 					Code: this.Code
 				}
-				
+
 				/* service.addUser(data);
 				uni.showToast({
 					title: '注册成功'
@@ -128,12 +134,14 @@ import { Base64 } from 'js-base64';
 		background-color: #00a8fe;
 		height: 100vh;
 	}
-	.page-name{
+
+	.page-name {
 		color: #FFFFFF;
 		font-size: 40upx;
 		margin-bottom: 40upx;
 	}
-    .input-group{
+
+	.input-group {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -143,26 +151,30 @@ import { Base64 } from 'js-base64';
 		width: 90%;
 		border-radius: 10upx;
 	}
+
 	.input-row {
-		    width: 100%;
-			display: flex;
-			flex-direction: row;
-			position: relative;
-			font-size: 28upx;
-			line-height: 40px;
-			align-items: center;
-			margin-top: 20upx;
-			border-bottom: 1upx #CCCCCC solid;
-			
-		}
-	#eyes{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		position: relative;
+		font-size: 28upx;
+		line-height: 40px;
+		align-items: center;
+		margin-top: 20upx;
+		border-bottom: 1upx #CCCCCC solid;
+
+	}
+
+	#eyes {
 		margin-left: 30upx;
 	}
+
 	.input-row .title {
 		width: 72px;
 		padding-left: 15px;
 	}
-	.login{
+
+	.login {
 		width: 500upx;
 		display: flex;
 		justify-content: space-between;
@@ -170,6 +182,7 @@ import { Base64 } from 'js-base64';
 		font-size: 28upx;
 		margin: 30upx auto;
 	}
+
 	.btn-row {
 		margin-top: 20upx;
 		width: 500upx;
@@ -186,7 +199,8 @@ import { Base64 } from 'js-base64';
 		line-height: 80upx;
 		margin: 20upx auto;
 	}
-	.getCode{
+
+	.getCode {
 		width: 200upx;
 		margin-right: 10upx;
 	}

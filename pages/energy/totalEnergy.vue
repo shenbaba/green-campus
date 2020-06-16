@@ -62,7 +62,7 @@
 			let day = new Date().getDay();
 			let startmonth = time1-day*oneDay
 			uni.request({
-			    url: '/api/GreenCampus/elec/allRegionElecSum',
+			    url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 				data:{
 					  endTime:time1,
 					  startTime:startDay,
@@ -74,7 +74,7 @@
 			    }
 			});
 			uni.request({
-			    url: '/api/GreenCampus/elec/allRegionElecSum',
+			    url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 				data:{
 					  endTime:time1,
 					  startTime:startyear,
@@ -86,7 +86,7 @@
 			    }
 			});
 			uni.request({
-			    url: '/api/GreenCampus/elec/allRegionElecSum',
+			    url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 				data:{
 					  endTime:time1,
 					  startTime:startmonth,

@@ -48,7 +48,7 @@
 			chose(){
 				this.list = [];
 				uni.request({
-					url:'/api/GreenCampus/user/one',
+					url:'http://118.178.126.209:8085/GreenCampus/user/one',
 					data:{
 						userId:this.userid	
 					},
@@ -66,7 +66,7 @@
 		},
 		onShow() {
 			uni.request({
-				url:'/api/GreenCampus/user/all',
+				url:'http://118.178.126.209:8085/GreenCampus/user/all',
 				data:{
 					pageNo: 1,
 					pageSize :10

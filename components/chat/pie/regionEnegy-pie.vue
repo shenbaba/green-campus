@@ -30,22 +30,26 @@
 			getServerData() {
 				//接受数据
 					uni.request({
-						url: '/api/GreenCampus/free/all',
+						url: 'http://118.178.126.209:8085/GreenCampus/elec/sortRegion',
 						data:{
-							endTime : 1609257600000,
-							startTime : 1577808000000,
-							timeType : 'month'
+							timeType: 'year',
+							startTime: 1577808000000,
+							limit: 9,
+							endTime: 1609344000000,
+							orderType: 'DES'
 						},
 						success: function(res) {
-							let Pie={series:[]};
+						let Pie={series:[]};
 						//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
 						let len = res.data.detail.length;
-						for(let i =0; i<1; i++){
-							let json = {}
+					
+						for(let i =0; i<len; i++){
+								let json = {};
 							json.name = res.data.detail[i].regionName;
-							json.data = res.data.detail[i].free;
+							json.data = res.data.detail[i].battery;
 							Pie.series.push(json);
 						}
+						
 							_self.showPie("canvasPie",Pie);
 						},
 						fail: () => {

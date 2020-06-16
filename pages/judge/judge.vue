@@ -47,7 +47,7 @@
 		methods: {
 			getDiaBattery(){
 				uni.request({
-					url:'/api/GreenCampusDia/allDiaBattery',
+					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaBattery',
 					data:{
 						pageNo : 1,
 						pageSize : 5
@@ -59,14 +59,15 @@
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})
 			},
 			getDiaQuota(){
 				uni.request({
-					url:'/api/GreenCampusDia/allDiaQuota',
+					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaQuota',
 					data:{
 						pageNo : 1,
 						pageSize : 5
@@ -78,14 +79,15 @@
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})
 			},
 			getDiaDevice(){
 				uni.request({
-					url:'/api/GreenCampusDia/allDiaDevice',
+					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaDevice',
 					data:{
 						pageNo : 1,
 						pageSize : 5
@@ -96,7 +98,8 @@
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})

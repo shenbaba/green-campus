@@ -37,7 +37,7 @@
 				let endtime = new Date().valueOf();
 				let starttime = endtime - 30*24*60*60*1000;
 				uni.request({
-				url: '/api/GreenCampus/elec/allRegionElecSum',
+				url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime : endtime,
 						startTime : starttime,

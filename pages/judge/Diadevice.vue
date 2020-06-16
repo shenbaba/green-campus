@@ -2,7 +2,7 @@
 	<view class="quota">
 		<headTop title="设备详情" uRl="./allDiaDevice"></headTop>
 		<view class="detail_title">
-			<text>指标名称：{{list.diaDeviceName}}</text>
+			<text>设备名称：{{list.diaDeviceName}}</text>
 		</view>
 		<view class="detail_msg">
 			<text>异常类型：<text>{{list.diaDeviceType}}</text></text>
@@ -35,7 +35,7 @@
 		},
 		mounted() {
 			uni.request({
-				url:'/api/GreenCampusDia/oneDiaDevice',
+				url:'http://118.178.126.209:8085/GreenCampusDia/oneDiaDevice',
 				data:{
 					id : this.index
 				},

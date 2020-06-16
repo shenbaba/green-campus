@@ -6,13 +6,14 @@
 			<view class="uni-list">
 				<view class="uni-list-cell">
 					<view class="uni-list-cell-db">
-						<picker @change="bindPickerChange" :value="index" :range="array">
-							<view class="uni-input">{{array[index]}}</view>
+						<picker @change="bindPickerChange" :value="index" :range="device">
+							<view class="uni-input" style="width: 170upx;">{{device[index]}}</view>
 						</picker>
 						<icon type="" class="iconfont icon-arrowdown"></icon>
 					</view>
 				</view>
 			</view>
+			<text>设备编号：{{array[index]}}</text>
 			<text>电表编号：452345254</text>
 			<text>所属区域：	陕西省西安市临潼区</text>
 		</view>
@@ -39,13 +40,13 @@
 		</view>
 		
 		<view class="year">
-			<ti-ps msg="设备费用详情"></ti-ps>
+			<ti-ps msg="该设备费日用详情"></ti-ps>
 			<u-Charts :d='chatDate' v-if="flag"></u-Charts>
 			<view class="Money">
 				<view class="total_money">
 					<view class="Money_n">
 						<text style="color: #0c82f0; font-size: 40upx;">{{list[0]}}</text>
-						<text style="font-size: 26upx; color: #626971;">合计金额（元）</text>
+						<text style="font-size: 26upx; color: #626971;">本月金额（元）</text>
 					</view>
 					<view class="dosage">
 						<text style="font-size: 26upx; color: #626971;">抄表日期：<text style="font-size: 26upx; color: #000;">{{list[1]}}</text></text>
@@ -55,7 +56,7 @@
 				<view class="total_ele">
 					<view class="Money_n">
 						<text style="color: #0c82f0; font-size: 40upx;">{{list[2]}}</text>
-						<text style="font-size: 26upx; color: #626971;">合计电量（千瓦时）</text>
+						<text style="font-size: 26upx; color: #626971;">本月电量（千瓦时）</text>
 					</view>
 					<view class="dosage">
 						<text style="font-size: 26upx; color: #626971;">去年同期电量<text style="font-size: 26upx; color: #0c82f0;">0</text>千瓦时</text>
@@ -80,6 +81,7 @@
 			return {
 				title: '重要设备能耗',
 				array: [],
+				device:[],
 				array1: ['2020', '2019', '2018'],
 				month:[1,2,3,4,5,6,7,8,9,10,11,12],
 				index: 0,
@@ -127,32 +129,23 @@
 				this.getRegion();
 				this.getDayChat();
 			},
-			renderTime(date) {
-			  let dateee = new Date(date).toJSON();
-			  return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
-			},
 			timestamp(){
-				
-				let time = this.array1[this.indexs] +'-'+ this.show;
-				let stamp =  (new Date(time)).valueOf();
+				let time = this.array1[this.indexs] +'-'+ this.show+'-'+'01';
+				let stamp =  (new Date(time.replace(/\-/g, "/"))).valueOf();
 				return stamp;
 			},
 			tiemsEnd(){
 				
-				if(this.show ==(this.show ==4 ||this.show == 6 || this.show ==9||this.show == 11)){
-					let time = this.array1[this.indexs] +'-'+ this.show;
-					let stamp =  (new Date(time)).valueOf() + 30*24*60*60*1000-1000;
-					
+				if((this.show == 4 ||this.show == 6 || this.show == 9||this.show == 11)){
+					let time = this.array1[this.indexs] +'-'+ this.show+'-'+'01';
+					let stamp =  (new Date(time.replace(/\-/g, "/"))).valueOf() + 30*24*60*60*1000-1000;
 					return stamp;
-					
 				}else if(this.show == 1 ||this.show == 3 || this.show ==5 ||this.show == 7 ||this.show == 8 || this.show ==10 || this.show ==12 ){
-					let time = this.array1[this.indexs] +'-'+ this.show;
-					let stamp =  (new Date(time)).valueOf() + 31*24*60*60*1000-1000;
-					
+					let time = this.array1[this.indexs] +'-'+ this.show+'-'+'01';
+					let stamp =  (new Date(time.replace(/\-/g, "/"))).valueOf() + 31*24*60*60*1000-1000;
 					return stamp;
 				}else if(this.show == (2)){
 					let stamp = 28*24*60*60*1000-1000 ;
-					
 					return stamp;
 				}
 			},
@@ -165,7 +158,7 @@
 				
 				this.dayDate.deviceNumber = this.array[this.index];
 				uni.request({
-					url:'/api/GreenCampus/free/oneDevice',
+					url:'http://118.178.126.209:8085/GreenCampus/free/oneDevice',
 					data:this.dayDate,
 					success: (res) => {
 						
@@ -174,7 +167,8 @@
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})
@@ -185,15 +179,13 @@
 				this.yearData.startTime = this.timestamp();
 				this.yearData.deviceNumber = this.array[this.index];
 				uni.request({
-					url:'/api/GreenCampus/free/oneDevice',
+					url:'http://118.178.126.209:8085/GreenCampus/free/oneDevice',
 					data:this.yearData,
 					success: (res) => {
 						this.list.push(res.data.detail[1].free);
-						let date = res.data.detail[1].time;
-						this.time=this.renderTime(date);
-						this.list.push(this.time);
+						this.list.push(res.data.detail[1].time.split('T')[0]);
 						uni.request({
-							url:'/api/GreenCampus/elec/oneDevice',
+							url:'http://118.178.126.209:8085/GreenCampus/elec/oneDevice',
 							data:this.yearData,
 							success: (res) => {
 								this.list.push(res.data.detail[1].battery);
@@ -211,19 +203,25 @@
 			getDevice(){
 				this.array = [];
 				uni.request({
-					url:'/api/GreenCampus/device/allImportDevice',
+					url:'http://118.178.126.209:8085/GreenCampus/device/allImportDevice',
 					success: (res) => {
 						res.data.detail.forEach((item)=>{
 							this.array.push(item.deviceNumber);
+							this.device.push(item.deviceName);
 						})
 					}
 				})
 			}
 		},
-		onShow(){
-			this.getRegion();
-			this.getDayChat();
+		onReady(){
 			this.getDevice();
+		},
+		onShow() {
+			setTimeout(()=>{
+				this.getRegion();
+				this.getDayChat();
+			},400)
+			
 		}
 	}
 </script>

@@ -14,7 +14,7 @@
 				<text><text>{{yearEle[0].battery}}度/</text>{{yearFree[0].free}}元</text>
 			</view>
 			<view class="">
-				<text style="color: #626971;">5月电量/电费</text>
+				<text style="color: #626971;">月电量/电费</text>
 				<text><text>{{monthEle[0].battery}}度/</text>{{monthFree[0].free}}元</text>
 			</view>
 			<view class="">
@@ -41,51 +41,35 @@
 		methods: {
 			getDate(){
 				uni.request({
-					url:'/api/GreenCampus/free/all',
+					url:'http://118.178.126.209:8085/GreenCampus/free/all',
 					data:{
 						endTime:1609344000000,
 						startTime:1577808000000,
-						timeType:'year'
+						timeType:'month'
 					},
 					success: (res) => {
-						this.yearFree[0].free=res.data.detail[1].free;
+						this.yearFree[0].free=res.data.detail[0].free;
+						this.monthFree[0].free = res.data.detail[6].free;
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
+						})
 					}
 				});
 				uni.request({
-					url:'/api/GreenCampus/elec/allRegionElecSum',
+					url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime:1609344000000,
 						startTime:1577808000000,
-						timeType:'year'
+						timeType:'month'
 					},
 					success: (res) => {
-						
-						this.yearEle[0].battery=res.data.detail[1].battery;
+						this.monthEle[0].battery =res.data.detail[6].battery
+						this.yearEle[0].battery=res.data.detail[0].battery;
 					}
 				});
- 				uni.request({
-					url:'/api/GreenCampus/free/all',
-					data:{
-						endTime:1593446400000,
-						startTime:1590940800000,
-						timeType:'month'
-					},
-					success: (res) => {
-						
-						this.monthFree[0].free=res.data.detail[1].free
-					}
-				}) ;
-				uni.request({
-					url:'/api/GreenCampus/elec/allRegionElecSum',
-					data:{
-						endTime:1593446400000,
-						startTime:1590940800000,
-						timeType:'month'
-					},
-					success: (res) => {
-						this.monthEle[0].battery=res.data.detail[1].battery
-					}
-				}) ;
 			}
 		},
 		onLoad() {

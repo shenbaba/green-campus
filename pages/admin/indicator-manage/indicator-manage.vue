@@ -49,7 +49,7 @@
 			chooseQuo(){
 				this.list = [];
 				uni.request({
-					url:'/api/GreenCampus/quota/search',
+					url:'http://118.178.126.209:8085/GreenCampus/quota/search',
 					data:{
 						quotaName:this.quotaname
 					},
@@ -59,7 +59,8 @@
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})
@@ -67,7 +68,7 @@
 		},
 		onShow(){
 			uni.request({
-				url:'/api/GreenCampus/quota/allStandradQuota',
+				url:'http://118.178.126.209:8085/GreenCampus/quota/allStandradQuota',
 				data:{
 					pageNo : 1,
 					pageSize :100 

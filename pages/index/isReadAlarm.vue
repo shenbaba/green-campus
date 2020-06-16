@@ -35,13 +35,9 @@
 					url:`isRead_child?index=${index+1}`
 				})
 			},
-			renderTime(date) {
-			  let dateee = new Date(date).toJSON();
-			  return new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '') 
-			},
 			getIsRead(){
 				uni.request({
-					url:'/api/GreenCampus/alarm/allAlarmRecordByRead',
+					url:'http://118.178.126.209:8085/GreenCampus/alarm/allAlarmRecordByRead',
 					data:{
 						isread : 0,
 						pageNo : 1,
@@ -50,7 +46,13 @@
 					success: (res) => {
 						this.list = res.data.detail;
 						this.list.forEach((item)=>{
-							item.alarmTime = this.renderTime(item.alarmTime);
+							item.alarmTime = item.alarmTime.split('T')[0]+'  '+item.alarmTime.split('T')[1].split('+')[0];
+						})
+					},
+					fail: () => {
+						uni.showToast({
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})

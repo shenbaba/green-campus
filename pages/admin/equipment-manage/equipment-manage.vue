@@ -71,7 +71,7 @@
 			chooseEq(){
 				this.list = [];
 				uni.request({
-					url:'/api/GreenCampus/device/search',
+					url:'http://118.178.126.209:8085/GreenCampus/device/search',
 					data:{
 						name:this.devicename	
 					},
@@ -81,7 +81,8 @@
 					},
 					fail: () => {
 						uni.showToast({
-							title:'网络出错'
+							title:'网络出错',
+							icon:'none'
 						})
 					}
 				})
@@ -89,7 +90,7 @@
 		},
 		onShow() {
 			 uni.request({
-				url:'/api/GreenCampus/device/all',
+				url:'http://118.178.126.209:8085/GreenCampus/device/all',
 				data:{
 					pageNo : 1,
 					pageSize :100 
@@ -98,7 +99,10 @@
 					this.list = res.data.detail
 				},
 				fail: () => {
-					_self.tips = '网络错误'
+					uni.showToast({
+						title:'网络出错',
+						icon:'none'
+					})
 				}
 			})
 		}

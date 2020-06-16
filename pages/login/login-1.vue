@@ -84,7 +84,7 @@
 				let reg2=/[a-z0-9A-Z]{6,8}/; //长度6-8位数字加字母组合
 				if(this.account == ""){
 					uni.showToast({
-					    title: '请输入账户',
+					    title: '账户名不能为空',
 					    duration: 2000,
 						icon:'none'
 					});
@@ -120,8 +120,7 @@
 					}
 					let times = new Date().valueOf();
 				
-					if(this.number === 3){
-						
+					if(this.number === 3){	
 						uni.request({
 							url:'/api/GreenCampus/alarm/addUserAlarm',
 							data:{
@@ -134,7 +133,6 @@
 								"content-type":"application/x-www-form-urlencoded",
 							},
 							success: (res) => {
-								
 								this.number = 0;
 							}
 							
@@ -151,12 +149,16 @@
 						success: (res) => {
 							
 							if(res.data.success == true){
-								uni.switchTab({
-									url:'../index/index'
-								});
 								uni.showToast({
 								    title: '登录成功',
 								    duration: 2000,
+									success: () => {
+										setTimeout(()=>{
+											uni.switchTab({
+												url:'../index/index'
+											});
+										},1000)
+									}
 								});
 							}else{
 								uni.showToast({

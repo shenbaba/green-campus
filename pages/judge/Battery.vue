@@ -43,7 +43,7 @@
 		},
 		mounted(){
 			uni.request({
-				url:'/api/GreenCampusDia/oneDiaBattery',
+				url:'http://118.178.126.209:8085/GreenCampusDia/oneDiaBattery',
 				data:{
 					id : this.index
 				},

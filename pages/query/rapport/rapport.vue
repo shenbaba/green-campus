@@ -44,7 +44,7 @@
 			chose(){
 				this.list = [];
 				uni.request({
-					url:'/api/GreenCampus/user/one',
+					url:'http://118.178.126.209:8085/GreenCampus/user/one',
 					data:{
 						userId:this.userid	
 					},
@@ -62,7 +62,7 @@
 		},
 		onShow() {
 			uni.request({
-				url:'/api/GreenCampus/user/all',
+				url:'http://118.178.126.209:8085/GreenCampus/user/all',
 				data:{
 					pageNo: 1,
 					pageSize :10
@@ -72,7 +72,10 @@
 					this.list = res.data.detail;
 				},
 				fail: () => {
-					this.tips="网络错误，小程序端请检查合法域名";
+					uni.showToast({
+						title:'网络出错',
+						icon:'none'
+					})
 				}
 			})
 		}
