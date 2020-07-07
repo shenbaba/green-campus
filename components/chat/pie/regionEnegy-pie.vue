@@ -30,7 +30,7 @@
 			getServerData() {
 				//接受数据
 					uni.request({
-						url: 'http://118.178.126.209:8085/GreenCampus/elec/sortRegion',
+						url: '/api/GreenCampus/elec/sortRegion',
 						data:{
 							timeType: 'year',
 							startTime: 1577808000000,

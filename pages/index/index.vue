@@ -5,12 +5,12 @@
 				<view class="uni-list-cell">
 					<view class="uni-list-cell-db">
 						<picker @change="bindPickerChange" :value="index" :range="array" >
-							<view class="uni-input" style="width: 100upx;">{{array[index]}}</view>
+							<view class="uni-input" style="width: 140upx;">{{array[index]}}</view>
 						</picker>
 						<icon type="" class="iconfont icon-arrowdown"></icon>
 					</view>
 				</view>
-			</view>
+			</view> 
 			<view class="header_r">
 				<view class="scan_code" @click="scanCode">
 					<icon type="" class="iconfont icon-saoma"></icon>
@@ -112,7 +112,7 @@
 					<text>未读告警</text>
 				</view>
 			</navigator>
-			<navigator url="../admin/serve_record/serve_record">
+			<navigator url="">
 				<view class="banner_list">
 					<icon class="iconfont icon-jilumian" type="" style="color: #fa9f56;"></icon>
 					<text>服务记录</text>
@@ -126,8 +126,9 @@
 			</navigator>
 		</view>
 		<view class="actions">
-			<ti-ps msg="子区域列表"></ti-ps>
-			<view class="ele_list">
+			<ti-ps msg="主要区域能耗排名"></ti-ps>
+			<region-rank></region-rank>
+			<!-- <view class="ele_list">
 				<view class="list_head">
 					<text>区域名</text>
 					<text>面积(平米)</text>
@@ -138,7 +139,7 @@
 					<text>{{items.area}}</text>
 					<text>{{items.manager}}</text>
 				</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -147,11 +148,12 @@
 	import headTop from '@/components/page-head/page-head.vue'
 	import banNer from '@/components/banner.vue'
 	import tiPs from "@/components/page-tips/tips.vue"
+	import regionRank from "@/components/chat/pie/regionEnegy-pie.vue"
 	export default {
 		data() {
 			return {
 				title: 'Hello',
-				array: ['临潼', '雁塔', '秦汉'],
+				array: ['临潼校区', '雁塔校区', '秦汉校区'],
 				index: 0,
 				regionData:[]
 			}
@@ -159,10 +161,11 @@
 		components: {
 			headTop,
 			banNer,
-			tiPs
+			tiPs,
+			regionRank
 		},
 		onLoad() {
-
+				
 		},
 		methods: {
 			bindPickerChange: function(e) {
@@ -180,7 +183,7 @@
 			},
 			getMainRegion(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/region/main',
+					url:'/api/GreenCampus/region/main',
 					success: (res) => {
 						this.regionData = res.data.detail;
 					}
@@ -267,13 +270,13 @@
 		}
 		.img_1{
 			position: absolute;
-			top: 20upx;
+			top: 10upx;
 			right: -100upx;
 			transform: scale(0.4);
 		}
 		.img_2{
 			position: absolute;
-			top: 60upx;
+			top: 50upx;
 			left: -240upx;
 			transform: scale(0.14);
 		}

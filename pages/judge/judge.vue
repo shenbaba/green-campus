@@ -47,7 +47,7 @@
 		methods: {
 			getDiaBattery(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaBattery',
+					url:'/api/GreenCampusDia/allDiaBattery',
 					data:{
 						pageNo : 1,
 						pageSize : 5
@@ -67,7 +67,7 @@
 			},
 			getDiaQuota(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaQuota',
+					url:'/api/GreenCampusDia/allDiaQuota',
 					data:{
 						pageNo : 1,
 						pageSize : 5
@@ -87,7 +87,7 @@
 			},
 			getDiaDevice(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaDevice',
+					url:'/api/GreenCampusDia/allDiaDevice',
 					data:{
 						pageNo : 1,
 						pageSize : 5

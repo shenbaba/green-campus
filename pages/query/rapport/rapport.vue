@@ -1,20 +1,17 @@
 <template>
 	<view class="rapport-page page">
-		<head-top title="报表查询" :bool="true" uRl="../../../pages/query/query-data"></head-top>
-		<calen-dar></calen-dar>
-		<view class="query">
-			<text>查询方案:</text>
-			<input type="text" placeholder="" style="font-size: 24upx;" v-model="userid"/>
-			<button @touchend="chose">查询</button>
-		</view>
+		<head-top title="实时表示数" :bool="true" uRl="../../../pages/query/query-data"></head-top>
 		<view class="query-lists">
-			<ti-ps msg="报表列表"></ti-ps>
+			<ti-ps msg="监控列表列表"></ti-ps>
 			<view  v-for="(item, index) in list" class="list"  :key="index">
-				<text>序号：{{item.userId}}</text>
-				<text>创建者：{{item.userName}}</text>
-				<text>生成时间：{{item.phoneNumber}}</text>
-				<text>报表时间：{{item.email}}</text>
-				<text>报表名称：用能日报</text>
+				<text>测量点名称：{{item.deviceName}}</text>
+				<text>能耗：{{item.battery}}</text>
+				<text>安装位置：{{item.address}}</text>
+				<text>信号名称：{{item.signalName}}</text>
+				<text>状态：{{item.state}}</text>
+				<text>采集时间：{{item.time}}</text>
+				<text>类型：{{item.type}}</text>
+				<text>单位：{{item.unit}}</text>
 			</view>
 		</view>
 		<view class="more" v-show='loading'>
@@ -40,35 +37,12 @@
 			tiPs,
 			calenDar
 		},
-		methods: {
-			chose(){
-				this.list = [];
-				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/user/one',
-					data:{
-						userId:this.userid	
-					},
-					success: (res) => {
-						this.list.push(res.data.detail);
-						
-					},
-					fail: () => {
-					uni.showToast({
-						title:'网络出错'
-					})
-					}
-				})
-			}
-		},
 		onShow() {
+			this.list= [];
 			uni.request({
-				url:'http://118.178.126.209:8085/GreenCampus/user/all',
-				data:{
-					pageNo: 1,
-					pageSize :10
-				},
+				url:'http://192.168.1.101:8085/GreenCampus/real/meter',
 				success:(res)=>{
-					
+					console.log(res);
 					this.list = res.data.detail;
 				},
 				fail: () => {

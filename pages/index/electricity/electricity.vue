@@ -41,7 +41,7 @@
 		methods: {
 			getDate(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/free/all',
+					url:'/api/GreenCampus/free/all',
 					data:{
 						endTime:1609344000000,
 						startTime:1577808000000,
@@ -59,7 +59,7 @@
 					}
 				});
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+					url:'/api/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime:1609344000000,
 						startTime:1577808000000,

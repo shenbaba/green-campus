@@ -197,7 +197,7 @@
 				this.dayDate.endTime = this.tiemsEnd();
 				this.dayDate.regionId = this.array[this.index];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/free/oneRegion',
+					url:'/api/GreenCampus/free/oneRegion',
 					data:this.dayDate,
 					success: (res) => {
 						this.chatDate = res.data.detail;
@@ -217,13 +217,13 @@
 				this.yearData.startTime = this.timestamp();
 				this.yearData.regionId = this.array[this.index];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/free/oneRegion',
+					url:'/api/GreenCampus/free/oneRegion',
 					data:this.yearData,
 					success: (res) => {
 						this.list.push(res.data.detail[1].free);
 						this.list.push(res.data.detail[1].time.split('T')[0]);
 						uni.request({
-							url:'http://118.178.126.209:8085/GreenCampus/elec/getOneRegion',
+							url:'/api/GreenCampus/elec/getOneRegion',
 							data:this.yearData,
 							success: (res) => {
 								this.list.push(res.data.detail[1].battery);
@@ -241,7 +241,7 @@
 			getDevice(){
 				this.array = [];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/region/main',
+					url:'/api/GreenCampus/region/main',
 					success: (res) => {
 						res.data.detail.forEach((item)=>{
 							this.array.push(item.regionId);
@@ -257,7 +257,7 @@
 				this.elcType.regionId = this.array[this.index];
 				this.elcType.timeType = 'month'
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/elec/getByType',
+					url:'/api/GreenCampus/elec/getByType',
 					data:this.elcType,
 					success: (res) => {
 						

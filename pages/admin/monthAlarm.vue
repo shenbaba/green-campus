@@ -84,7 +84,7 @@
 			/* 全部数据 */
 			getAllalarm(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/alarm/allAlarmRecord',
+					url:'/api/GreenCampus/alarm/allAlarmRecord',
 					data:{
 						pageNo:1,
 						pageSize:10
@@ -109,7 +109,7 @@
 			getMonthalarm(){
 				let nowTime = new Date().valueOf();
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/alarm/alarmRecordByTime',
+					url:'/api/GreenCampus/alarm/alarmRecordByTime',
 					data:{
 						time:nowTime
 					},

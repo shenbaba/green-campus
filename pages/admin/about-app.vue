@@ -1,9 +1,11 @@
 <template>
 	<view class="about-page">
 		<head-top title="设置" uRl="../../pages/admin/admin"></head-top>
-		<view class="improve">
+		<navigator url="./improve_info">
+		<view class="improve" style="margin-top: 20upx;">
 			<text>完善个人信息</text>
 		</view>
+		</navigator>
 		<view class="change">
 			<text>修改个人信息</text>
 		</view>

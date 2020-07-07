@@ -35,7 +35,7 @@
 				
 					 uni.request({
 						// 请求地址
-						url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+						url:'/api/GreenCampus/elec/allRegionElecSum',
 						// 请求参数
 						data: {
 							endTime: 1609257600000,

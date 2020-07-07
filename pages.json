@@ -3,12 +3,12 @@
 	  "nvueCompiler":"uni-app" //是否启用 uni-app 模式
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		/* {
+		 {
 			"path": "pages/login/login-1",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
-		}, */
+		}, 
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -31,12 +31,6 @@
             "path" : "pages/fee/equipmentCost",
             "style" : {
 				 
-			}
-        }
-        ,{
-            "path" : "pages/energy/totalEnergy",
-            "style" : {
-				"navigationBarTitleText": "总费用"
 			}
         }
         ,{
@@ -66,7 +60,9 @@
         }
         ,{
             "path" : "pages/admin/user-manage/user-manage",
-            "style" : {}
+            "style" : {
+				"enablePullDownRefresh":true
+			}
         }
         ,{
             "path" : "pages/admin/equipment-manage/equipment-manage",
@@ -211,6 +207,10 @@
             "path" : "pages/fee/regionElc",
             "style" : {}
         }
+        ,{
+            "path" : "pages/admin/improve_info",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -228,26 +228,26 @@
 	            {
 	                "pagePath":"pages/index/index",
 	                "text":"首页",
-	                "iconPath":"./static/icon/home%20(4).png",
-	                "selectedIconPath":"./static/icon/home.png"
+	                "iconPath":"static/icon/home(4).png",
+	                "selectedIconPath":"static/icon/home.png"
 	            },
 	            {
 	                "pagePath":"pages/judge/judge",
 	                "text":"诊断",
-	                "iconPath":"static/icon/company-fill%20(1).png",
+	                "iconPath":"static/icon/company-fill(1).png",
 	                "selectedIconPath":"static/icon/company-fill.png"
 	            },
 	      
 	            {
 	                "pagePath":"pages/query/query-data",
 	                "text":"查询",
-	                "iconPath":"static/icon/rank%20(1).png",
+	                "iconPath":"static/icon/rank(1).png",
 	                "selectedIconPath":"static/icon/rank.png"
 	            },
 				{
 				    "pagePath":"pages/admin/admin",
 				    "text":"管理",
-				    "iconPath":"static/icon/account%20(1).png",
+				    "iconPath":"static/icon/account(1).png",
 				    "selectedIconPath":"static/icon/account.png"
 				}
 	        ]

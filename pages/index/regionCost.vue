@@ -162,7 +162,7 @@
 				this.msgFormSon = [];
 				let Time = this.timestamp();
 				uni.request({
-					url: 'http://118.178.126.209:8085/GreenCampus/free/all',
+					url: '/api/GreenCampus/free/all',
 					data: {
 						timeType: 'month',
 						endTime: 1609257600000,
@@ -173,7 +173,7 @@
 						this.msgFormSon.push(res.data.detail[1].free);
 						this.msgFormSon.push(res.data.detail[1].time.split('T')[0]);
 						uni.request({
-							url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+							url: '/api/GreenCampus/elec/allRegionElecSum',
 							data:  {
 								timeType: 'month',
 								endTime: 1609257600000,

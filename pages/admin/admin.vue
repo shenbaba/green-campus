@@ -11,7 +11,7 @@
 					<image src="../../static/1.png" alt=""></image>
 				</view>
 				<view class="admin-user">
-					<text>admin:9527</text>
+					<text>{{account[0].userName}}</text>
 					<navigator url="./personal-msg"><text>查看个人信息</text></navigator>
 				</view>
 			</view>
@@ -101,12 +101,35 @@
 		data() {
 			return {
 				changeimg: '',
+				account:[]
 			}
 		},
 		components:{
 			
 		},
+		onLoad() {
+			uni.getStorage({
+				key:'accountInfo',
+				success: (res) => {
+					this.account.push(res.data)
+				}
+			})
+		},
+		onShow() {
+			this.putAlarm()
+		},
 		methods: {
+			putAlarm(){
+				uni.connectSocket({
+					url:"ws://118.178.126.209:8085/websocket",
+					success(data){
+						uni.showToast({
+							title: data,
+							icon:'none',
+						})
+					}
+				})
+			}
 		}
 	}
 </script>

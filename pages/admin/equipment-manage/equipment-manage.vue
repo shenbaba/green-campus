@@ -71,7 +71,7 @@
 			chooseEq(){
 				this.list = [];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/device/search',
+					url:'/api/GreenCampus/device/search',
 					data:{
 						name:this.devicename	
 					},
@@ -90,7 +90,7 @@
 		},
 		onShow() {
 			 uni.request({
-				url:'http://118.178.126.209:8085/GreenCampus/device/all',
+				url:'/api/GreenCampus/device/all',
 				data:{
 					pageNo : 1,
 					pageSize :100 

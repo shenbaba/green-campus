@@ -1,28 +1,15 @@
 <template>
-	<view class="history-page page">
-		<head-top title="历史抄表示数" :bool="true" uRl="../../../pages/query/query-data"></head-top>
-		<calen-dar></calen-dar>
-		<view class="query">
-			<text>查询方案:</text>
-			<input type="text" placeholder="" style="font-size: 24upx;" v-model="userid"/>
-			<button @touchend="chose">查询</button>
-		</view>
-		<view class="query-lists">
-			<ti-ps msg="报表列表"></ti-ps>
-			<view  v-for="(item, index) in list" class="list"  :key="index">
-				<text>序号：{{item.userId}}</text>
-				<text>表计标号：{{item.userName}}</text>
-				<text>表计名称：{{item.phoneNumber}}</text>
-				<text>测量点名称：{{item.email}}</text>
-				<text>信号：用能日报</text>
-				<text>时间：</text>
-				<text>采集时间：</text>
-				<text>示值：</text>
-				<text>单位：</text>
+	<view class="history-page page" style="background-color: #FFFFFF;">
+		<head-top title="实时区域能耗" :bool="true" uRl="../../../pages/query/query-data"></head-top>
+		<canvas  style="width: 400upx; height: 400upx; margin: 0 auto; background-color: #FFFFFF;text-align: center;" canvas-id="firstCanvas"></canvas>
+		<view class="now_data">
+			<ti-ps msg="实时区域总能耗"></ti-ps>
+			<view class="">
+				<text>本小时能耗值：{{list.batteryHour}}</text>
+				<text>本日累计能耗值：{{list.batteryDay}}</text>
+				<text>本月累计能耗值：{{list.batteryMonth}}</text>
+				<text>本年累计能耗值：{{list.batteryYear}}</text>
 			</view>
-		</view>
-		<view class="more" v-show='loading'>
-			<text>没有更多了</text>
 		</view>
 	</view>
 </template>
@@ -34,55 +21,132 @@
 	export default {
 		data() {
 			return {
-				list:[],
-				loading : true,
-				userid :''
+				list: [ ],
+				loading: true,
+				userid: ''
 			}
 		},
-		components:{
+		components: {
 			headTop,
 			tiPs,
 			calenDar
 		},
+		onShow() {
+			this.times();
+			this.getregion();
+		},
 		methods: {
-			chose(){
-				this.list = [];
+			times() {
+				setInterval(function(){
+				var oGc = uni.createCanvasContext('firstCanvas');
+				oGc.rect(200, 0, 200, 200);
+				var newT = new Date();
+				//newT.getMinutes()/2,分钟每走一圈,时针转30度
+				var hour = newT.getHours() * 30 + newT.getMinutes() / 2 - 90;
+				//newT.getSeconds()/10,秒针走完一圈,分针转6度.
+				var min = newT.getMinutes() * 6 + newT.getSeconds() / 10 - 90;
+				var second = newT.getSeconds() * 6 - 90;
+				//制作小刻度
+				for (var i = 0; i < 60; i++) {
+					oGc.beginPath();
+					oGc.moveTo(100, 100);
+					oGc.arc(100, 100, 75, i * 6 * Math.PI / 180, (i + 1) * 6 * Math.PI / 180, false);
+					oGc.stroke();
+					oGc.closePath();
+				}
+				//覆盖表盘
+				oGc.beginPath();
+				oGc.setFillStyle('#FFFFFF');
+				oGc.moveTo(100, 100);
+				oGc.arc(100, 100, 70, 0, 360 * Math.PI / 180, false);
+				oGc.fill();
+				oGc.closePath();
+				//大刻度
+				for (var i = 0; i < 12; i++) {
+					oGc.beginPath();
+					oGc.moveTo(100, 100);
+					oGc.setFillStyle("#FFFFFF");
+					oGc.arc(100, 100, 75, i * 30 * Math.PI / 180, (i + 1) * 30 * Math.PI / 180, false);
+					oGc.stroke();
+					oGc.closePath();
+				}
+				//覆盖大刻度
+				oGc.beginPath();
+				oGc.setFillStyle("#FFFFFF");
+				oGc.moveTo(100, 100);
+				oGc.arc(100, 100, 65, 0, 360 * Math.PI / 180, false);
+				oGc.fill();
+				oGc.closePath();
+				//时针
+				oGc.beginPath();
+				
+				oGc.setLineWidth(6)
+				oGc.moveTo(100, 100);
+				oGc.arc(100, 100, 40, hour * Math.PI / 180, hour * Math.PI / 180, false);
+
+				oGc.closePath();
+				oGc.stroke();
+				//分针
+				oGc.beginPath();
+				oGc.setStrokeStyle("orange")
+				oGc.setLineWidth(4)
+				oGc.moveTo(100, 100);
+				oGc.arc(100, 100, 50, min * Math.PI / 180, min * Math.PI / 180, false);
+
+				oGc.closePath();
+				oGc.stroke();
+				//秒针
+				oGc.beginPath();
+				oGc.setStrokeStyle("red")
+				oGc.setLineWidth(2)
+				oGc.moveTo(100, 100);
+				oGc.arc(100, 100, 65, second * Math.PI / 180, second * Math.PI / 180, false);
+				oGc.closePath();
+				oGc.stroke();
+				//圆心覆盖
+				oGc.beginPath();
+				oGc.setFillStyle("red")
+				oGc.moveTo(100, 100);
+				oGc.arc(100, 100, 2, 0, 360 * Math.PI / 180, false);
+				oGc.fill();
+				oGc.closePath();
+				oGc.draw();
+				},1000)
+			},
+			getregion(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/user/one',
-					data:{
-						userId:this.userid	
+					url:'/apl/GreenCampus/real/region',
+					data: {
+						regionId: 1
 					},
 					success: (res) => {
-						this.list.push(res.data.detail);
-						
+						console.log(res);
+						this.list = res.data.detail;
 					},
 					fail: () => {
-					uni.showToast({
-						title:'网络出错'
-					})
+						uni.showToast({
+							title: '网络出错'
+						})
 					}
 				})
 			}
 		},
-		onShow() {
-			uni.request({
-				url:'http://118.178.126.209:8085/GreenCampus/user/all',
-				data:{
-					pageNo: 1,
-					pageSize :10
-				},
-				success:(res)=>{
-					
-					this.list = res.data.detail;
-				},
-				fail: () => {
-					this.tips="网络错误，小程序端请检查合法域名";
-				}
-			})
-		}
+
 	}
 </script>
 
-<style>
-@import url("../../../static/admin.css");
+<style lang="less">
+	@import url("../../../static/admin.css");
+	.now_data{
+		padding: 10upx 20upx;
+		view{
+			display: flex;
+			flex-direction: column;
+			font-size: 28upx;
+			text{
+				margin-left: 20upx;
+				margin-top: 20upx;
+			}
+		}
+	}
 </style>

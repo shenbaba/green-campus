@@ -119,7 +119,7 @@
 			},
 			getMonthFree() {
 				uni.request({
-					url: 'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+					url: '/api/GreenCampus/elec/allRegionElecSum',
 					data: {
 						endTime: 1609344000000,
 						startTime: 1577808000000,
@@ -132,7 +132,7 @@
 							item.time = item.time.split('-')[1]+'月';
 						})
 						uni.request({
-							url: 'http://118.178.126.209:8085/GreenCampus/free/all',
+							url: '/api/GreenCampus/free/all',
 							data: {
 								endTime: 1609344000000,
 								startTime: 1577808000000,
@@ -159,7 +159,7 @@
 				let endtime = new Date().valueOf();
 				let starttime = endtime - 7*24*60*60*1000;
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+					url:'/api/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime : endtime,
 						startTime : starttime,
@@ -188,7 +188,7 @@
 				let endtime = new Date().valueOf();
 				let starttime = endtime - 30*24*60*60*1000;
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/elec/allRegionElecSum',
+					url:'/api/GreenCampus/elec/allRegionElecSum',
 					data:{
 						endTime : endtime,
 						startTime : starttime,

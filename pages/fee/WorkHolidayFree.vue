@@ -70,7 +70,7 @@
 			},
 			getInfo() {
 				uni.request({
-					url: 'http://118.178.126.209:8085/GreenCampus/free/allWorkHolidayFree',
+					url: '/api/GreenCampus/free/allWorkHolidayFree',
 					success: (res) => {
 						this.listFree = res.data.detail;
 						let len = this.listFree.length;
@@ -91,9 +91,8 @@
 					}
 				});
 				uni.request({
-					url: 'http://118.178.126.209:8085/GreenCampus/elec/allWorkHoliday',
+					url: '/api/GreenCampus/elec/allWorkHoliday',
 					success: (res) => {
-						
 						this.listEle = res.data.detail;
 						let len = this.listEle.length;
 						for(let i = 0; i<len; i++){

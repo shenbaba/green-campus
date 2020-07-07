@@ -27,7 +27,7 @@
 			getSearch(){
 				this.list = []
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampusDia/searchDiaDevice',
+					url:'/api/GreenCampusDia/searchDiaDevice',
 					data:{
 						name:this.diaDevicename
 					},
@@ -45,7 +45,7 @@
 			},
 			getDiaDevice(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampusDia/allDiaDevice',
+					url:'/api/GreenCampusDia/allDiaDevice',
 					data:{
 						pageNo : 1,
 						pageSize : 100

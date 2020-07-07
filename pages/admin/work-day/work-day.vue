@@ -44,7 +44,7 @@
 			chooseWoek(){
 				this.list = [];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/workHoliday/one',
+					url:'/api/GreenCampus/workHoliday/one',
 					data:{
 						workHolidayId:this.workHolidayId	
 					},
@@ -61,7 +61,7 @@
 			},
 			getInfo(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/workHoliday/all',
+					url:'/api/GreenCampus/workHoliday/all',
 					data:{
 						
 					},

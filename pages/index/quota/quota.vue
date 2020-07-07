@@ -34,7 +34,7 @@
 		methods: {
 			getQUota(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/quota/allQuota',
+					url:'/api/GreenCampus/quota/allQuota',
 					data:{
 						pageNo : 1,
 						pageSize:10,

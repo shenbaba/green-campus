@@ -5,7 +5,7 @@
 
 <style>
 	/*每个页面公共css */
-	@import url("http://at.alicdn.com/t/font_1633081_x60nwds05mh.css");
+	@import url("http://at.alicdn.com/t/font_1633081_xy7hh2vnk1.css");
 	@import "components/m-icon/m-icon.css";
 	button {
 		background-color: #0191fb;

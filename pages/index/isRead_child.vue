@@ -26,7 +26,7 @@
 		},
 		mounted() {
 			uni.request({
-				url:'http://118.178.126.209:8085/GreenCampus/alarm/oneAlarmRecord',
+				url:'/api/GreenCampus/alarm/oneAlarmRecord',
 				data:{
 					alarmRecordId : this.indexs
 				},

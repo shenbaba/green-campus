@@ -37,6 +37,7 @@
 		},
 		methods: {
 			sendEamil(){
+				this.list = [];
 				let json = {passWord : Base64.encode(this.password),userName:this.account}
 				uni.request({
 					url:'/api/GreenCampus/user/missPassword',
@@ -62,15 +63,19 @@
 						title:'修改密码成功',
 						duration:1000,
 						success() {
-							uni.navigateTo({
-								url:'./login-1'
-							})
+							setTimeout(()=>{
+								uni.navigateTo({
+									url:'./login-1'
+								})
+							},1000)
+							
 						}
 					});
 				}else{
 					uni.showToast({
 						title:'验证码错误',
-						duration:1000
+						duration:1000,
+						icon:'none'
 					})
 				}
 			}
@@ -80,7 +85,7 @@
 
 <style lang="less">
 .findPassword{
-	background-color: #00a8fe;
+	background-image: linear-gradient(to bottom right, #6699FF, #66CCFF);
 	height: calc(100vh - 120upx);
 	padding: 60upx 30upx;
 	font-size: 28upx;
@@ -103,6 +108,7 @@
 			height: 80upx;
 			line-height: 80upx;
 			margin-top: 20upx;
+			background-image: linear-gradient(to right, #6699FF, #66CCFF);
 		}
 	}
 }

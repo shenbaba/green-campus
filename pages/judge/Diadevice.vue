@@ -35,7 +35,7 @@
 		},
 		mounted() {
 			uni.request({
-				url:'http://118.178.126.209:8085/GreenCampusDia/oneDiaDevice',
+				url:'/api/GreenCampusDia/oneDiaDevice',
 				data:{
 					id : this.index
 				},

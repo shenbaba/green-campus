@@ -30,7 +30,7 @@
 			getServerData() {
 				//接受数据
 					uni.request({
-						url:'http://118.178.126.209:8085/GreenCampus/elec/sortDevice',
+						url:'/api/GreenCampus/elec/sortDevice',
 						data:{
 							timeType:'year',
 							startTime:1577808000000,

@@ -20,6 +20,7 @@ const store = new Vuex.Store({
 		logout(state) {
 			state.userName = "";
 			state.hasLogin = false;
+			
 		}
 	}
 })

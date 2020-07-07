@@ -43,7 +43,7 @@
 			chooseRegion(){
 				this.list = [];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/region/search',
+					url:'/api/GreenCampus/region/search',
 					data:{
 						regionName:this.regioname
 					},
@@ -66,7 +66,7 @@
 		onShow() {
 			
 			uni.request({
-				url:'http://118.178.126.209:8085/GreenCampus/region/main',
+				url:'/api/GreenCampus/region/main',
 				/* data:{
 					pageNo:1,
 					pageSize:100

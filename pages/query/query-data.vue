@@ -1,32 +1,32 @@
 <template>
 	<view class="query-page">
-		<head-top title="数据查询" :bool="false"></head-top>
+		<head-top title="实时查询" :bool="false"></head-top>
 		<view class="query_list">
 			<navigator url="./rapport/rapport">
 				<view class="query rapport">
 					<icon type="" class="iconfont icon-baobiao"></icon>
-					<text>报表查看</text>
+					<text>实时表示数</text>
 					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
 				</view>
 			</navigator>
 			<navigator url="./history-data/history-data">
 				<view class="query history">
 					<icon type="" class="iconfont icon-lishi"></icon>
-					<text>历史抄表示数</text>
+					<text>实时区域能耗</text>
 					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
 				</view>
 			</navigator>
 			<navigator url="./history-dosage/history-dosage">
 				<view class="query dosage">
 					<icon type="" class="iconfont icon-3yongliang"></icon>
-					<text>历史用量数据</text>
+					<text>实时遥测数据</text>
 					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
 				</view>
 			</navigator>
 			<navigator url="./history-telemeterimg/history-telemeterimg">
 				<view class="query telemetering">
 					<icon type="" class="iconfont icon-dengguangyaokongqibeifen"></icon>
-					<text>历史遥测数据</text>
+					<text>系统状态监测</text>
 					<icon type="" class="iconfont icon-arrow-right" style="float: right;"></icon>
 				</view>
 			</navigator>

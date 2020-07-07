@@ -158,7 +158,7 @@
 				
 				this.dayDate.deviceNumber = this.array[this.index];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/free/oneDevice',
+					url:'/api/GreenCampus/free/oneDevice',
 					data:this.dayDate,
 					success: (res) => {
 						
@@ -179,13 +179,13 @@
 				this.yearData.startTime = this.timestamp();
 				this.yearData.deviceNumber = this.array[this.index];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/free/oneDevice',
+					url:'/api/GreenCampus/free/oneDevice',
 					data:this.yearData,
 					success: (res) => {
 						this.list.push(res.data.detail[1].free);
 						this.list.push(res.data.detail[1].time.split('T')[0]);
 						uni.request({
-							url:'http://118.178.126.209:8085/GreenCampus/elec/oneDevice',
+							url:'/api/GreenCampus/elec/oneDevice',
 							data:this.yearData,
 							success: (res) => {
 								this.list.push(res.data.detail[1].battery);
@@ -203,7 +203,7 @@
 			getDevice(){
 				this.array = [];
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/device/allImportDevice',
+					url:'/api/GreenCampus/device/allImportDevice',
 					success: (res) => {
 						res.data.detail.forEach((item)=>{
 							this.array.push(item.deviceNumber);

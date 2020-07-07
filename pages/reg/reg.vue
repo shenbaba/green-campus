@@ -1,7 +1,7 @@
 <template>
 	<view class="reg-page">
 		<view class="page-name">
-			注册
+			注册账户	
 		</view>
 		<view class="input-group">
 			<view class="input-row border">
@@ -15,16 +15,15 @@
 			<view class="input-row border">
 				<icon type="" class="iconfont icon-mima title"></icon>
 				<input type="password" displayable v-model="password" placeholder="请输入密码"></input>
-				<icon type="" class="iconfont icon-ai44" id="eyes"></icon>
+				<!-- <icon type="" class="iconfont icon-ai44" id="eyes"></icon> -->
 			</view>
 			<view class="input-row border">
 				<icon type="" class="iconfont icon-mima title"></icon>
 				<input type="password" displayable v-model="password1" placeholder="请确认密码"></input>
-				<icon type="" class="iconfont icon-ai44" id="eyes"></icon>
+				<!-- <icon type="" class="iconfont icon-ai44" id="eyes"></icon> -->
 			</view>
 			<view class="login">
 				<navigator url="../login/login-1"><text>已有账号</text></navigator>
-
 			</view>
 			<view class="btn-row">
 				<button type="primary" class="primary reg" @click="register">注册</button>
@@ -131,7 +130,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		background-color: #00a8fe;
+		background-image: linear-gradient(to bottom right, #6699FF, #66CCFF);
 		height: 100vh;
 	}
 
@@ -146,10 +145,11 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		background-color: #FFFFFF;
+		background-color: rgba(255,255,255,0.85);
 		margin: 0 auto;
-		width: 90%;
-		border-radius: 10upx;
+		width: 75%;
+		border-radius: 40upx;
+		padding: 20upx 40upx;
 	}
 
 	.input-row {
@@ -161,8 +161,8 @@
 		line-height: 40px;
 		align-items: center;
 		margin-top: 20upx;
-		border-bottom: 1upx #CCCCCC solid;
-
+		border: 1upx #CCCCCC solid;
+		border-radius: 20upx;
 	}
 
 	#eyes {
@@ -170,28 +170,31 @@
 	}
 
 	.input-row .title {
-		width: 72px;
+		width: 42px;
 		padding-left: 15px;
+		border-right: 1upx #CCCCCC solid;
 	}
-
+	.input-row input{
+		padding-left: 20upx;
+	}
 	.login {
 		width: 500upx;
 		display: flex;
 		justify-content: space-between;
 		color: #7597b2;
 		font-size: 28upx;
-		margin: 30upx auto;
+		margin: 10upx auto;
 	}
 
 	.btn-row {
-		margin-top: 20upx;
+		margin-top: 10upx;
 		width: 500upx;
 		display: flex;
 		justify-content: space-between;
 	}
 
 	.reg {
-		background-color: #40B1FF;
+		background-image: linear-gradient(to bottom right, #6699FF, #66CCFF);
 		font-size: 24upx;
 		color: #FFFFFF;
 		width: 500upx;

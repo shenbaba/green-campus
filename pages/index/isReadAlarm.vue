@@ -37,7 +37,7 @@
 			},
 			getIsRead(){
 				uni.request({
-					url:'http://118.178.126.209:8085/GreenCampus/alarm/allAlarmRecordByRead',
+					url:'/api/GreenCampus/alarm/allAlarmRecordByRead',
 					data:{
 						isread : 0,
 						pageNo : 1,
